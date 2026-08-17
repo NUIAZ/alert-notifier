@@ -52,7 +52,7 @@ describe('install + first poll', () => {
     expect(critical.requireInteraction).toBe(true);
     expect(critical.priority).toBe(2);
     expect(critical.title).toMatch(/^\[CRITICAL\]/);
-    expect(critical.iconUrl).toBe('icons/logo128.png');
+    expect(critical.iconUrl).toBe('icons/icon128.png');
     const info = chrome._calls.notifications.find(n => n.id === 'alert:mock-info-001');
     expect(info.requireInteraction).toBe(false);
 

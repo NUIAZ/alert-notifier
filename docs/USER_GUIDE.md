@@ -31,7 +31,7 @@ pages, and sends nothing anywhere except those two requests.
 4. Click **Load unpacked** and choose the extracted `alert-notifier` folder.
 5. Click the puzzle-piece icon in the toolbar and **pin** Alert Notifier.
 
-You'll see a blue bell icon. Within a few seconds a number appears on it —
+You'll see a round "R" icon. Within a few seconds a number appears on it —
 how many Extreme/Severe weather alerts are active anywhere in the US right now.
 Narrow it to your state in Settings (below).
 

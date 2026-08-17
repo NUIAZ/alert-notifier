@@ -163,9 +163,8 @@ function updateBadge(visible) {
 /**
  * OS-level notification. `requireInteraction` keeps critical/serious toasts on
  * screen until clicked or closed; lower severities auto-hide. The icon is the
- * project logo (icons/logo128.png) rather than the toolbar bell — at toast
- * size a distinctive mark says whose notification this is at a glance. Body text is
- * clipped — Windows/macOS truncate hard anyway, and the full text is one click
+ * 128px logo (same mark as the toolbar) so the toast is recognisable at a
+ * glance among other apps' notifications. Body text is clipped — Windows/macOS truncate hard anyway, and the full text is one click
  * away in the popup. Notification IDs are namespaced so onClicked can tell ours
  * from anything else and map back to the alert.
  */
@@ -173,7 +172,7 @@ function showNotification(alert) {
   const body = (alert.message || '').replace(/\s+/g, ' ').trim();
   chrome.notifications.create(NOTIFICATION_PREFIX + alert.id, {
     type: 'basic',
-    iconUrl: 'icons/logo128.png',
+    iconUrl: 'icons/icon128.png',
     title: `[${SEVERITY_LABELS[alert.severity]}] ${alert.title}`,
     message: body.length > 180 ? body.slice(0, 177) + '…' : body || 'Click to view details',
     priority: alert.severity === 'critical' ? 2 : 1,

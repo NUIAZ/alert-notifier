@@ -191,8 +191,8 @@ sources/
   githubstatus.js     Statuspage v2 adapter (GitHub Status)
   mock.js             offline sample data
 tests/                vitest, 76 tests incl. worker driven through a chrome stub
-icons/                toolbar bell PNGs + make_icons.py; logo.png is the author's mark,
-                      used for notifications, the modal and the options header
+icons/                logo.png (source of truth) + make_icons.py that downsamples it to
+                      the 16/32/48/128 toolbar, notification and store sizes
 scripts/package.mjs   zips the runtime files for store upload
 docs/                 user guide, adding-a-source guide, screenshots
 ```
@@ -246,7 +246,7 @@ Full contract and tips: [docs/ADDING_A_SOURCE.md](docs/ADDING_A_SOURCE.md).
 npm install          # vitest + jsdom, only for tests
 npm test             # 76 tests: pure modules, adapters vs captured fixtures,
                      # and the service worker driven through tests/chrome-stub.js
-npm run icons        # regenerate icons/*.png (needs Python + Pillow)
+npm run icons        # regenerate icons/icon*.png from icons/logo.png (Python + Pillow)
 npm run package      # dist/alert-notifier-<version>.zip for store upload
 ```
 
@@ -277,7 +277,8 @@ way.
   public domain, no key. Nationwide (Extreme + Severe by default) or one state.
 - **GitHub Status** — [githubstatus.com/api](https://www.githubstatus.com/api),
   Statuspage v2 JSON. The same shape is served by many other status pages.
-- Icons in the UI are from [Bootstrap Icons](https://icons.getbootstrap.com/) (MIT).
+- Severity glyphs in the UI are from [Bootstrap Icons](https://icons.getbootstrap.com/) (MIT).
+  The "R" mark is the author's own.
 
 ## License
 

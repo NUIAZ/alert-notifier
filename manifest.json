@@ -3,37 +3,33 @@
   "name": "Alert Notifier",
   "version": "1.0.0",
   "description": "Polls a public alert feed (NWS weather alerts, GitHub Status) and surfaces new alerts as a toolbar badge, OS notifications, and a modal window for the severe ones. Swap in your own feed with a ~30-line adapter.",
-
   "permissions": [
     "alarms",
     "storage",
     "notifications"
   ],
-
   "host_permissions": [
     "https://api.weather.gov/*",
     "https://www.githubstatus.com/*"
   ],
-
   "background": {
     "service_worker": "background.js",
     "type": "module"
   },
-
   "action": {
     "default_popup": "popup.html",
     "default_title": "Alert Notifier",
     "default_icon": {
       "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
       "48": "icons/icon48.png",
       "128": "icons/icon128.png"
     }
   },
-
   "options_page": "options.html",
-
   "icons": {
     "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   }
