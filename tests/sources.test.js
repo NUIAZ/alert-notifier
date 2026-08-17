@@ -93,7 +93,7 @@ describe('NWS adapter', () => {
   });
 
   it('buildUrl: nationwide omits ?area, severity is passed through', () => {
-    expect(buildUrl({})).toBe('https://api.weather.gov/alerts/active?severity=Extreme%2CSevere');
+    expect(buildUrl({})).toBe('https://api.weather.gov/alerts/active?severity=Extreme%2CSevere%2CModerate%2CMinor%2CUnknown');
     expect(buildUrl({ area: '', severity: 'Extreme,Severe' })).toBe('https://api.weather.gov/alerts/active?severity=Extreme%2CSevere');
     expect(buildUrl({ area: 'az', severity: 'Extreme,Severe,Moderate,Minor,Unknown' }))
       .toBe('https://api.weather.gov/alerts/active?area=AZ&severity=Extreme%2CSevere%2CModerate%2CMinor%2CUnknown');
@@ -186,7 +186,7 @@ describe('source registry', () => {
     expect(getSource(undefined).id).toBe(DEFAULT_SOURCE_ID);
   });
   it('defaultSettingsFor reads each declared default', () => {
-    expect(defaultSettingsFor(getSource('nws'))).toEqual({ area: '', severity: 'Extreme,Severe' });
+    expect(defaultSettingsFor(getSource('nws'))).toEqual({ area: 'AZ', severity: 'Extreme,Severe,Moderate,Minor,Unknown' });
     expect(defaultSettingsFor(getSource('mock'))).toEqual({});
   });
   it('per-source select settings have their default among their options', () => {

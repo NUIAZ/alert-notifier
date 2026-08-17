@@ -21,12 +21,14 @@
  * ~1.4 MB on an ordinary day (measured 2026-08-17: 450 features — 123 Severe,
  * 103 Moderate, 216 Minor). That is too much for a badge to mean anything and
  * more than we want to write to storage every 15 minutes. So:
- *   • `area`     — a state/territory, or blank for nationwide (the default).
+ *   • `area`     — a state/territory (default AZ — the author's; change it in
+ *                  Options), or "Nationwide".
  *   • `severity` — passed to the API as ?severity=… so the filtering happens
  *                  server-side and the noise is never downloaded. Default is
- *                  Extreme+Severe, which nationwide is ~120 features / ~0.5 MB
- *                  before de-duplication. Pick a state to comfortably show
- *                  everything.
+ *                  "All", which is fine for one state (AZ on a busy day is
+ *                  ~10 features). If you go nationwide, raise it to
+ *                  Extreme+Severe (~120 features / ~0.5 MB) — the options
+ *                  help text says so, and the popup caps at 25 cards regardless.
  * The extension's global "ignore anything below" setting still applies on top.
  *
  * ── Severity mapping ────────────────────────────────────────────────────────
@@ -76,8 +78,8 @@ export const settings = [
     key: 'area',
     label: 'Region',
     type: 'select',
-    default: '',
-    help: 'Nationwide, or one state / territory. Nationwide is busy — pair it with the severity floor below.',
+    default: 'AZ',
+    help: 'One state / territory, or nationwide. Nationwide is busy — pair it with the severity floor below.',
     options: [
       { value: '', label: 'Nationwide (all US)' },
       ...AREAS.map(code => ({ value: code, label: code })),
@@ -87,8 +89,8 @@ export const settings = [
     key: 'severity',
     label: 'Fetch alerts rated',
     type: 'select',
-    default: 'Extreme,Severe',
-    help: 'Applied by the NWS server before download. Nationwide + "all" is ~450 alerts; Extreme + Severe is ~120.',
+    default: 'Extreme,Severe,Moderate,Minor,Unknown',
+    help: 'Applied by the NWS server before download. "All" suits a single state; nationwide + "All" is ~450 alerts, Extreme + Severe ~120.',
     options: [
       { value: 'Extreme',                                label: 'Extreme only' },
       { value: 'Extreme,Severe',                         label: 'Extreme + Severe (recommended nationwide)' },
@@ -135,7 +137,7 @@ export function buildUrl(opts = {}) {
   const params = new URLSearchParams();
   const area = String(opts.area || '').trim().toUpperCase();
   if (area) params.set('area', area);
-  const severity = String(opts.severity || 'Extreme,Severe').trim();
+  const severity = String(opts.severity || 'Extreme,Severe,Moderate,Minor,Unknown').trim();
   if (severity) params.set('severity', severity);
   return `https://api.weather.gov/alerts/active?${params.toString()}`;
 }

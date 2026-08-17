@@ -31,9 +31,9 @@ pages, and sends nothing anywhere except those two requests.
 4. Click **Load unpacked** and choose the extracted `alert-notifier` folder.
 5. Click the puzzle-piece icon in the toolbar and **pin** Alert Notifier.
 
-You'll see a round "R" icon. Within a few seconds a number appears on it —
-how many Extreme/Severe weather alerts are active anywhere in the US right now.
-Narrow it to your state in Settings (below).
+You'll see a round "R" icon. Within a few seconds a number may appear on it —
+how many weather alerts are active for the default region (Arizona). Change the
+region to your state in Settings (below).
 
 ### If you see "Manifest file is missing or unreadable"
 You picked the folder *above* the right one. Choose the folder that directly
@@ -85,9 +85,9 @@ Right-click the icon → **Options**, or the ⚙ in the popup. Everything saves
 by itself.
 
 **Feed** — where alerts come from:
-- *NWS weather alerts (US)* — underneath, choose a **Region** (nationwide or
-  one state) and which severities to **fetch**. Nationwide is busy, so it
-  starts at Extreme + Severe; pick your state to see everything local.
+- *NWS weather alerts (US)* — underneath, choose a **Region** (your state, or
+  nationwide) and which severities to **fetch**. Nationwide is busy — if you
+  pick it, set the severities to *Extreme + Severe*.
 - *GitHub Status incidents* — GitHub's own outage feed. Usually empty (that's
   good news).
 - *Sample data (offline)* — five made-up alerts, one of every severity. Use it

@@ -10,8 +10,8 @@ three levels of interruption:
 | **Notification** | An OS toast. Critical/serious ones stay until acted on | Every new alert |
 | **Modal window** | A small pop-up window that stays until acknowledged | New **critical** or **serious** alerts |
 
-Out of the box it watches **US National Weather Service alerts** — nationwide,
-filtered to Extreme + Severe, or any state you pick — a live, public, keyless feed with a native severity field, so the whole
+Out of the box it watches **US National Weather Service alerts** for one state
+(Arizona by default — pick yours, or go nationwide) — a live, public, keyless feed with a native severity field, so the whole
 escalation ladder can be seen with real data. A second adapter watches
 **GitHub Status** incidents. A third is offline **sample data** so every
 treatment can be demonstrated on demand.
@@ -70,10 +70,11 @@ That's it. It polls immediately on install, then every 15 minutes.
 
 ### First-run walkthrough
 
-- Click the icon. You will see the current **nationwide Extreme + Severe** NWS
-  alerts (there is nearly always at least one), or *All clear*.
-- Click the gear → **Settings**. Set **Region** to your state to see everything
-  local, or stay nationwide and adjust the severity floor.
+- Click the icon. You will see current NWS alerts for **Arizona** (the default
+  region), or *All clear*.
+- Click the gear → **Settings**. Set **Region** to your state. *Nationwide* is
+  there too — it's busy (70+ on a normal day), so raise the severity floor to
+  Extreme + Severe if you use it.
 - To see every treatment at once: set **Feed** to *Sample data (offline)*,
   then press **Test notifications**. You will get five toasts, two modal
   windows (critical + serious), and a black badge showing **5**.
@@ -192,7 +193,7 @@ sources/
   mock.js             offline sample data
 tests/                vitest, 76 tests incl. worker driven through a chrome stub
 icons/                logo.png (source of truth) + make_icons.py that downsamples it to
-                      the 16/32/48/128 toolbar, notification and store sizes
+                      16/32/48/128 (16/32 get a shadow lift so the bezel reads on dark toolbars)
 scripts/package.mjs   zips the runtime files for store upload
 docs/                 user guide, adding-a-source guide, screenshots
 ```
@@ -274,7 +275,7 @@ way.
 ## Data sources & attribution
 
 - **NWS** — [api.weather.gov](https://www.weather.gov/documentation/services-web-api),
-  public domain, no key. Nationwide (Extreme + Severe by default) or one state.
+  public domain, no key. One state (AZ by default) or nationwide.
 - **GitHub Status** — [githubstatus.com/api](https://www.githubstatus.com/api),
   Statuspage v2 JSON. The same shape is served by many other status pages.
 - Severity glyphs in the UI are from [Bootstrap Icons](https://icons.getbootstrap.com/) (MIT).
