@@ -1,6 +1,6 @@
 # Alert Notifier
 
-A Manifest V3 browser extension (Chrome, Edge, Brave — anything Chromium) that
+A Manifest V3 browser extension (Chrome, Edge, Brave, anything Chromium) that
 watches an alert feed in the background and escalates anything new through
 three levels of interruption:
 
@@ -11,7 +11,7 @@ three levels of interruption:
 | **Modal window** | A small pop-up window that stays until acknowledged | New **critical** or **serious** alerts |
 
 Out of the box it watches **US National Weather Service alerts** for one state
-(Arizona by default — pick yours, or go nationwide) — a live, public, keyless feed with a native severity field, so the whole
+(Arizona by default; pick yours, or go nationwide). It is a live, public, keyless feed with a native severity field, so the whole
 escalation ladder can be seen with real data. A second adapter watches
 **GitHub Status** incidents. A third is offline **sample data** so every
 treatment can be demonstrated on demand.
@@ -20,10 +20,10 @@ treatment can be demonstrated on demand.
 > that polled a company's outage API and made sure nobody missed a critical
 > incident. This is that architecture, rebuilt for the public with the
 > internal feed replaced by pluggable public sources. Adding your own feed is a
-> ~30-line adapter — see [Adding a data source](#adding-a-data-source).
+> ~30-line adapter; see [Adding a data source](#adding-a-data-source).
 
 No build step. No runtime dependencies. Vanilla ES modules, ~1,600 lines
-including comments — and it is *heavily* commented, because the interesting
+including comments, and it is *heavily* commented, because the interesting
 part of a service-worker extension is the *why* (see
 [background.js](background.js) for what MV3 does to your assumptions).
 
@@ -57,7 +57,7 @@ extension developers run everything, and it survives browser restarts.
    - Chrome / Brave: `chrome://extensions`
    - Edge: `edge://extensions`
 
-3. **Turn on Developer mode** — toggle in the top-right (Chrome) or left
+3. **Turn on Developer mode**: toggle in the top-right (Chrome) or left
    sidebar (Edge).
 
 4. **Load unpacked** → select the `alert-notifier` folder (the one containing
@@ -73,7 +73,7 @@ That's it. It polls immediately on install, then every 15 minutes.
 - Click the icon. You will see current NWS alerts for **Arizona** (the default
   region), or *All clear*.
 - Click the gear → **Settings**. Set **Region** to your state. *Nationwide* is
-  there too — it's busy (70+ on a normal day), so raise the severity floor to
+  there too. It's busy (70+ on a normal day), so raise the severity floor to
   Extreme + Severe if you use it.
 - To see every treatment at once: set **Feed** to *Sample data (offline)*,
   then press **Test notifications**. You will get five toasts, two modal
@@ -83,7 +83,7 @@ That's it. It polls immediately on install, then every 15 minutes.
 
 ### Windows notification checklist
 
-If toasts do not appear: Windows **Settings → System → Notifications** — make
+If toasts do not appear: Windows **Settings → System → Notifications**. Make
 sure notifications are on for your browser and *Focus assist / Do not disturb*
 is off. Chrome and Edge each appear as their own app in that list.
 
@@ -96,15 +96,15 @@ Cards are sorted most-severe first. Each shows severity, title, the body text
 (long NWS bulletins are trimmed with a fade; the modal or *Details ↗* has the
 full text), start/end times, and two controls:
 
-- **✕ Dismiss** — hides this alert from the popup and badge. It stays hidden
+- **✕ Dismiss**: hides this alert from the popup and badge. It stays hidden
   until the source stops reporting it; if it later comes back it is treated as
   new again.
-- **Don't notify me again for this alert** — the alert stays *visible* but
+- **Don't notify me again for this alert**: the alert stays *visible* but
   will not toast or open a modal again. Use it for a multi-day heat warning you
   already know about.
 
 The popup shows at most 25 cards (worst first) and says how many more there
-are — nationwide NWS can run to 70+; the badge always has the true count.
+are. Nationwide NWS can run to 70+; the badge always has the true count.
 
 Header buttons: **↻ Check now** and **⚙ Settings**. Under the title: which feed
 is active and when it was last checked (hover for the exact time). If the last
@@ -123,12 +123,12 @@ Everything autosaves.
 | Setting | Default | Notes |
 |---|---|---|
 | Feed | NWS weather alerts | Per-feed options appear underneath: **Region** (nationwide or a state) and the **severity floor** the NWS server applies before download |
-| Check every | 15 min | Minimum 5 — be polite to public APIs |
+| Check every | 15 min | Minimum 5. Be polite to public APIs |
 | Ignore anything below | Info | e.g. *Serious* keeps only critical + serious |
 | System notifications | on | |
 | Pop-up window for critical/serious | on | |
-| Test notifications | — | Forgets what was already shown and re-polls, so everything active fires again |
-| Reset to defaults | — | Two-click confirm |
+| Test notifications | (button) | Forgets what was already shown and re-polls, so everything active fires again |
+| Reset to defaults | (button) | Two-click confirm |
 
 ---
 
@@ -154,28 +154,28 @@ Everything autosaves.
 
 Things worth knowing, all spelled out in comments in the code:
 
-- **Why `chrome.alarms` and not `setInterval`** — MV3 service workers are
+- **Why `chrome.alarms` and not `setInterval`**: MV3 service workers are
   killed after ~30 s idle. The browser owns the schedule and wakes the worker.
-- **Why all state is in `chrome.storage.local`** — module-level variables
+- **Why all state is in `chrome.storage.local`**: module-level variables
   reset every time the worker restarts.
-- **Why listeners are registered synchronously at top level** — otherwise
+- **Why listeners are registered synchronously at top level**: otherwise
   there is nothing for the browser to wake the worker *for*.
-- **Why the modal is opened by ID, not by URL params** — NWS bodies run to
+- **Why the modal is opened by ID, not by URL params**: NWS bodies run to
   several KB and some platforms cap URL length.
-- **Why notification-click opens the alert window and not the popup** —
+- **Why notification-click opens the alert window and not the popup**:
   `chrome.action.openPopup()` needs a user gesture in the extension's own
   context and throws otherwise.
-- **Why NWS alerts are de-duplicated** — one warning is issued once per
+- **Why NWS alerts are de-duplicated**: one warning is issued once per
   forecast-zone group, so a state-wide heat warning arrives as six near-identical
   features. They collapse on (event, severity, ends) with a stable derived ID.
-- **Why the popup owns no state** — it is destroyed the moment it loses focus,
+- **Why the popup owns no state**: it is destroyed the moment it loses focus,
   so it asks the worker on every open and sends every action back as a message.
 
 ### Layout
 ```
-manifest.json         MV3 manifest — permissions, host_permissions, module worker
+manifest.json         MV3 manifest: permissions, host_permissions, module worker
 background.js         service worker: alarm, poll, badge, notifications, modal
-popup.html/.js        toolbar popup — renders cards from worker state
+popup.html/.js        toolbar popup, renders cards from worker state
 alert.html/.js        the modal window
 options.html/.js      settings; per-source form generated from the registry
 styles.css            one stylesheet for all three pages, dark-mode aware
@@ -187,7 +187,7 @@ lib/
   icons.js            inline SVG per severity
 sources/
   types.js            the Alert contract every adapter returns
-  index.js            registry — add your adapter here
+  index.js            registry, add your adapter here
   nws.js              National Weather Service adapter (default)
   githubstatus.js     Statuspage v2 adapter (GitHub Status)
   mock.js             offline sample data
@@ -234,7 +234,7 @@ export async function fetchAlerts() {
 
 Then register it in `sources/index.js` and add its host to `host_permissions`
 in `manifest.json`. The options page picks it up automatically. A unit test
-(`tests/sources.test.js`) fails if you forget the manifest entry — the runtime
+(`tests/sources.test.js`) fails if you forget the manifest entry; the runtime
 symptom would otherwise be a bare *Failed to fetch*.
 
 Full contract and tips: [docs/ADDING_A_SOURCE.md](docs/ADDING_A_SOURCE.md).
@@ -255,7 +255,7 @@ npm run package      # dist/alert-notifier-<version>.zip for store upload
 extension into a throw-away browser profile with Playwright, waits for the
 service worker to register, switches to sample data, screenshots the popup /
 modal / options, then flips to NWS and asserts a live poll succeeds. Playwright
-is deliberately not a dependency here — point it at any project that has one:
+is deliberately not a dependency here; point it at any project that has one:
 
 ```bash
 PLAYWRIGHT_DIR=../some-project/node_modules/playwright BROWSER_CHANNEL=msedge node scripts/screenshots.mjs
@@ -269,18 +269,18 @@ After editing, click **↻ Reload** on the extension's card in
 Verified on Microsoft Edge (Windows 11) via the Playwright smoke test; Chrome
 and Brave share the same engine and extension APIs. Firefox is *not*
 supported as-is: it lacks `chrome.action.setBadgeTextColor` and uses
-`browser.*` promises — a `webextension-polyfill` shim would get most of the
+`browser.*` promises; a `webextension-polyfill` shim would get most of the
 way.
 
 ## Data sources & attribution
 
-- **NWS** — [api.weather.gov](https://www.weather.gov/documentation/services-web-api),
+- **NWS**: [api.weather.gov](https://www.weather.gov/documentation/services-web-api),
   public domain, no key. One state (AZ by default) or nationwide.
-- **GitHub Status** — [githubstatus.com/api](https://www.githubstatus.com/api),
+- **GitHub Status**: [githubstatus.com/api](https://www.githubstatus.com/api),
   Statuspage v2 JSON. The same shape is served by many other status pages.
 - Severity glyphs in the UI are from [Bootstrap Icons](https://icons.getbootstrap.com/) (MIT).
   The "R" mark is the author's own.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).
