@@ -268,10 +268,35 @@ is deliberately not a dependency here; point it at any project that has one:
 PLAYWRIGHT_DIR=../some-project/node_modules/playwright BROWSER_CHANNEL=msedge node scripts/screenshots.mjs
 ```
 
-After editing, click **↻ Reload** on the extension's card in
-`chrome://extensions`; the service worker's console is behind the
-**service worker** link on that card, the popup's behind right-click →
-*Inspect* on the popup.
+### After you edit something
+
+A loaded-unpacked extension does not watch the disk. What you need to do after
+a change depends on what you changed:
+
+| You changed | Do this |
+|---|---|
+| `popup.*`, `options.*`, `alert.*`, `styles.css`, or `lib/` / `sources/` as used by those pages | Nothing special. Close and reopen the popup or options page; they are ordinary pages and are re-read from disk each time they open. |
+| `background.js`, or anything it imports (`lib/`, `sources/`) | **Reload the extension.** The service worker is already running or cached and will not pick up new code on its own. |
+| `manifest.json` (permissions, host_permissions, icons) | **Reload the extension.** If the toolbar icon still looks stale afterwards, restart the browser; icons are cached hard. |
+| PNGs in `icons/` | Reload the extension. |
+
+To reload: `chrome://extensions` (or `edge://extensions`), find Alert Notifier,
+click the **↻ Reload** button on its card. That restarts the service worker and
+re-reads the manifest. Your settings, dismissed/silenced lists and stored alerts
+survive a reload (they live in `chrome.storage.local`, which only *Remove*
+clears).
+
+Two things worth knowing while iterating:
+
+- After a reload the worker does not necessarily poll straight away; the alarm
+  is re-armed for the full interval. Click **↻ Check now** in the popup, or
+  **Test notifications** in Settings, to force one.
+- The **service worker** link on the extension's card opens DevTools for
+  `background.js`; you will see the `[alert-notifier] polling …` lines there.
+  For the popup, right-click inside it and choose *Inspect*.
+
+`scripts/screenshots.mjs` sidesteps all of this because it launches a fresh
+throw-away browser profile every run, so it always sees the current files.
 
 Verified on Microsoft Edge (Windows 11) via the Playwright smoke test; Chrome
 and Brave share the same engine and extension APIs. Firefox is *not*
