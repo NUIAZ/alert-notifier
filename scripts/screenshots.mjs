@@ -110,7 +110,7 @@ try {
   const popupNws = await context.newPage();
   await popupNws.goto(`chrome-extension://${extId}/popup.html`);
   await popupNws.waitForTimeout(800);
-  await popupNws.locator('.container').screenshot({ path: resolve(outDir, 'popup-nws.png') });
+  await popupNws.screenshot({ path: resolve(outDir, 'popup-nws.png') }); // viewport only: nationwide is long
 
   if (swErrors.length) {
     console.error('service worker console errors:', swErrors);

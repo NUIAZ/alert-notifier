@@ -7,7 +7,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { normalizeNws } from '../sources/nws.js';
+import { normalizeNws, buildUrl } from '../sources/nws.js';
 import { normalizeStatuspage } from '../sources/githubstatus.js';
 import * as mock from '../sources/mock.js';
 import { SOURCES, getSource, DEFAULT_SOURCE_ID, defaultSettingsFor } from '../sources/index.js';
@@ -92,6 +92,18 @@ describe('NWS adapter', () => {
     expect(out).toHaveLength(1);
   });
 
+  it('buildUrl: nationwide omits ?area, severity is passed through', () => {
+    expect(buildUrl({})).toBe('https://api.weather.gov/alerts/active?severity=Extreme%2CSevere');
+    expect(buildUrl({ area: '', severity: 'Extreme,Severe' })).toBe('https://api.weather.gov/alerts/active?severity=Extreme%2CSevere');
+    expect(buildUrl({ area: 'az', severity: 'Extreme,Severe,Moderate,Minor,Unknown' }))
+      .toBe('https://api.weather.gov/alerts/active?area=AZ&severity=Extreme%2CSevere%2CModerate%2CMinor%2CUnknown');
+  });
+
+  it('names the issuing offices in the message', () => {
+    const out = normalizeNws(raw, NOW);
+    expect(out[0].message).toMatch(/Issued by NWS/);
+  });
+
   it('tolerates an empty or malformed payload', () => {
     expect(normalizeNws({}, NOW)).toEqual([]);
     expect(normalizeNws(null, NOW)).toEqual([]);
@@ -174,7 +186,7 @@ describe('source registry', () => {
     expect(getSource(undefined).id).toBe(DEFAULT_SOURCE_ID);
   });
   it('defaultSettingsFor reads each declared default', () => {
-    expect(defaultSettingsFor(getSource('nws'))).toEqual({ area: 'AZ' });
+    expect(defaultSettingsFor(getSource('nws'))).toEqual({ area: '', severity: 'Extreme,Severe' });
     expect(defaultSettingsFor(getSource('mock'))).toEqual({});
   });
   it('per-source select settings have their default among their options', () => {

@@ -31,9 +31,9 @@ pages, and sends nothing anywhere except those two requests.
 4. Click **Load unpacked** and choose the extracted `alert-notifier` folder.
 5. Click the puzzle-piece icon in the toolbar and **pin** Alert Notifier.
 
-You'll see a blue bell icon. Within a few seconds a number may appear on it —
-that's how many alerts are active for the default area (Arizona). Change the
-area in Settings (below).
+You'll see a blue bell icon. Within a few seconds a number appears on it —
+how many Extreme/Severe weather alerts are active anywhere in the US right now.
+Narrow it to your state in Settings (below).
 
 ### If you see "Manifest file is missing or unreadable"
 You picked the folder *above* the right one. Choose the folder that directly
@@ -85,7 +85,9 @@ Right-click the icon → **Options**, or the ⚙ in the popup. Everything saves
 by itself.
 
 **Feed** — where alerts come from:
-- *NWS weather alerts (US)* — pick your **State / territory** underneath.
+- *NWS weather alerts (US)* — underneath, choose a **Region** (nationwide or
+  one state) and which severities to **fetch**. Nationwide is busy, so it
+  starts at Extreme + Severe; pick your state to see everything local.
 - *GitHub Status incidents* — GitHub's own outage feed. Usually empty (that's
   good news).
 - *Sample data (offline)* — five made-up alerts, one of every severity. Use it
@@ -111,7 +113,7 @@ every current alert fires. Switch to *Sample data* first to see the full show.
 | No notifications appear | Windows: Settings → System → Notifications — make sure your browser is allowed and *Do not disturb* is off. macOS: System Settings → Notifications → your browser. |
 | Badge shows a number but the popup says "All clear" | You have dismissed them all. Wait for the next check or press *Test notifications*. |
 | Yellow "Last check failed" bar | No internet, or the site is down. It retries on the next check. |
-| Nothing for my state | Good — no NWS alerts right now. Try *Sample data* to confirm it's working. |
+| Nothing for my state | Good — no NWS alerts there right now. Try *Sample data* to confirm it's working. |
 | I moved/renamed the folder | The browser loses the extension. Load unpacked again from the new location. |
 
 ## Uninstalling

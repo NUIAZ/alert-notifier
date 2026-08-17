@@ -10,8 +10,8 @@ three levels of interruption:
 | **Notification** | An OS toast. Critical/serious ones stay until acted on | Every new alert |
 | **Modal window** | A small pop-up window that stays until acknowledged | New **critical** or **serious** alerts |
 
-Out of the box it watches **US National Weather Service alerts** for a state you
-pick — a live, public, keyless feed with a native severity field, so the whole
+Out of the box it watches **US National Weather Service alerts** — nationwide,
+filtered to Extreme + Severe, or any state you pick — a live, public, keyless feed with a native severity field, so the whole
 escalation ladder can be seen with real data. A second adapter watches
 **GitHub Status** incidents. A third is offline **sample data** so every
 treatment can be demonstrated on demand.
@@ -33,7 +33,7 @@ part of a service-worker extension is the *why* (see
   <img src="docs/screenshots/modal.png" width="400" alt="Modal window for a critical alert with an Acknowledge button">
 </p>
 <p align="center">
-  <img src="docs/screenshots/popup-nws.png" width="340" alt="Popup showing a live NWS Extreme Heat Warning for Arizona">
+  <img src="docs/screenshots/popup-nws.png" width="340" alt="Popup showing live nationwide NWS Extreme/Severe alerts">
   &nbsp;&nbsp;
   <img src="docs/screenshots/options.png" width="400" alt="Settings page: feed picker, interval, minimum severity, interruption toggles, test button">
 </p>
@@ -70,9 +70,10 @@ That's it. It polls immediately on install, then every 15 minutes.
 
 ### First-run walkthrough
 
-- Click the icon. You will see either current NWS alerts for **Arizona** (the
-  default area) or *All clear*.
-- Click the gear → **Settings**. Change **State / territory** to yours.
+- Click the icon. You will see the current **nationwide Extreme + Severe** NWS
+  alerts (there is nearly always at least one), or *All clear*.
+- Click the gear → **Settings**. Set **Region** to your state to see everything
+  local, or stay nationwide and adjust the severity floor.
 - To see every treatment at once: set **Feed** to *Sample data (offline)*,
   then press **Test notifications**. You will get five toasts, two modal
   windows (critical + serious), and a black badge showing **5**.
@@ -101,6 +102,9 @@ full text), start/end times, and two controls:
   will not toast or open a modal again. Use it for a multi-day heat warning you
   already know about.
 
+The popup shows at most 25 cards (worst first) and says how many more there
+are — nationwide NWS can run to 70+; the badge always has the true count.
+
 Header buttons: **↻ Check now** and **⚙ Settings**. Under the title: which feed
 is active and when it was last checked (hover for the exact time). If the last
 check failed, a yellow banner says why and the previous alerts stay put.
@@ -117,7 +121,7 @@ Everything autosaves.
 
 | Setting | Default | Notes |
 |---|---|---|
-| Feed | NWS weather alerts | Per-feed options appear underneath (state picker for NWS) |
+| Feed | NWS weather alerts | Per-feed options appear underneath: **Region** (nationwide or a state) and the **severity floor** the NWS server applies before download |
 | Check every | 15 min | Minimum 5 — be polite to public APIs |
 | Ignore anything below | Info | e.g. *Serious* keeps only critical + serious |
 | System notifications | on | |
@@ -186,8 +190,9 @@ sources/
   nws.js              National Weather Service adapter (default)
   githubstatus.js     Statuspage v2 adapter (GitHub Status)
   mock.js             offline sample data
-tests/                vitest, 74 tests incl. worker driven through a chrome stub
-icons/                PNGs + make_icons.py (Pillow) that regenerates them
+tests/                vitest, 76 tests incl. worker driven through a chrome stub
+icons/                toolbar bell PNGs + make_icons.py; logo.png is the author's mark,
+                      used for notifications, the modal and the options header
 scripts/package.mjs   zips the runtime files for store upload
 docs/                 user guide, adding-a-source guide, screenshots
 ```
@@ -239,7 +244,7 @@ Full contract and tips: [docs/ADDING_A_SOURCE.md](docs/ADDING_A_SOURCE.md).
 
 ```bash
 npm install          # vitest + jsdom, only for tests
-npm test             # 74 tests: pure modules, adapters vs captured fixtures,
+npm test             # 76 tests: pure modules, adapters vs captured fixtures,
                      # and the service worker driven through tests/chrome-stub.js
 npm run icons        # regenerate icons/*.png (needs Python + Pillow)
 npm run package      # dist/alert-notifier-<version>.zip for store upload
@@ -269,7 +274,7 @@ way.
 ## Data sources & attribution
 
 - **NWS** — [api.weather.gov](https://www.weather.gov/documentation/services-web-api),
-  public domain, no key. Alerts are for the selected US state only.
+  public domain, no key. Nationwide (Extreme + Severe by default) or one state.
 - **GitHub Status** — [githubstatus.com/api](https://www.githubstatus.com/api),
   Statuspage v2 JSON. The same shape is served by many other status pages.
 - Icons in the UI are from [Bootstrap Icons](https://icons.getbootstrap.com/) (MIT).

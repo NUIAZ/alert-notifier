@@ -1,5 +1,5 @@
 # Runs the unit tests on every push and PR. The extension itself has no build
-# step, so this is the whole CI: 74 vitest cases covering the pure modules, the
+# step, so this is the whole CI: 76 vitest cases covering the pure modules, the
 # adapters against captured payloads, and the service worker driven through a
 # chrome.* stub.
 name: tests

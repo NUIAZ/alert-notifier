@@ -67,13 +67,29 @@ async function render() {
   }
 }
 
+/**
+ * Cap on cards rendered. Nationwide NWS at Extreme+Severe is ~70 alerts on an
+ * ordinary day; a 70-card popup is unusable and the badge already carries the
+ * count. We render the worst MAX_CARDS (the list is sorted by severity first)
+ * and say how many are hidden, pointing at the region setting.
+ */
+const MAX_CARDS = 25;
+
 /** Build one card per alert from the <template> in popup.html. */
 function renderCards(alerts, silenced) {
   els.list.replaceChildren();
   const empty = alerts.length === 0;
   els.none.classList.toggle('hidden', !empty);
   els.list.classList.toggle('hidden', empty);
-  for (const alert of alerts) els.list.appendChild(buildCard(alert, silenced.has(alert.id)));
+  for (const alert of alerts.slice(0, MAX_CARDS)) {
+    els.list.appendChild(buildCard(alert, silenced.has(alert.id)));
+  }
+  if (alerts.length > MAX_CARDS) {
+    const more = document.createElement('div');
+    more.className = 'more-note';
+    more.textContent = `${alerts.length - MAX_CARDS} more not shown — narrow the region or raise the severity floor in Settings.`;
+    els.list.appendChild(more);
+  }
   // Now that cards are laid out, mark bodies that overflow their max-height so
   // CSS can draw the "there's more" fade only where it is true.
   for (const body of els.list.querySelectorAll('.alert-message')) {

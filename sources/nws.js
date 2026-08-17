@@ -1,7 +1,7 @@
 /**
  * sources/nws.js — US National Weather Service active alerts.
  *
- * Endpoint:  https://api.weather.gov/alerts/active?area=<STATE>
+ * Endpoint:  https://api.weather.gov/alerts/active[?area=<STATE>][&severity=…]
  * Docs:      https://www.weather.gov/documentation/services-web-api
  * Auth:      none. NWS asks for an identifying User-Agent; a browser extension's
  *            fetch() sends the browser's UA automatically, which is accepted.
@@ -15,6 +15,19 @@
  * Why this is the default demo source: it is a real, live, public *alert* feed
  * with a native four-level severity field, so the extension's badge → toast →
  * modal escalation shows up exactly as designed, with no key and no backend.
+ *
+ * ── Volume, and why there are two settings ──────────────────────────────────
+ * Nationwide and unfiltered, /alerts/active returns ~400–500 features and
+ * ~1.4 MB on an ordinary day (measured 2026-08-17: 450 features — 123 Severe,
+ * 103 Moderate, 216 Minor). That is too much for a badge to mean anything and
+ * more than we want to write to storage every 15 minutes. So:
+ *   • `area`     — a state/territory, or blank for nationwide (the default).
+ *   • `severity` — passed to the API as ?severity=… so the filtering happens
+ *                  server-side and the noise is never downloaded. Default is
+ *                  Extreme+Severe, which nationwide is ~120 features / ~0.5 MB
+ *                  before de-duplication. Pick a state to comfortably show
+ *                  everything.
+ * The extension's global "ignore anything below" setting still applies on top.
  *
  * ── Severity mapping ────────────────────────────────────────────────────────
  * NWS `severity` is one of Extreme / Severe / Moderate / Minor / Unknown, which
@@ -42,8 +55,16 @@ import { normalizeSeverity } from '../lib/severity.js';
 export const id = 'nws';
 export const label = 'NWS weather alerts (US)';
 export const description =
-  'Live National Weather Service alerts for one state. No API key.';
+  'Live National Weather Service alerts, nationwide or for one state. No API key.';
 export const hosts = ['https://api.weather.gov/*'];
+
+/** USPS codes the API accepts for ?area=. */
+const AREAS = [
+  'AL','AK','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HI','ID','IL','IN',
+  'IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH',
+  'NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT',
+  'VT','VA','WA','WV','WI','WY','PR','GU','VI','AS','MP',
+];
 
 /**
  * Per-source options rendered by options.js. Each entry becomes a form field
@@ -53,16 +74,27 @@ export const hosts = ['https://api.weather.gov/*'];
 export const settings = [
   {
     key: 'area',
-    label: 'State / territory',
+    label: 'Region',
     type: 'select',
-    default: 'AZ',
-    help: 'Two-letter USPS code. Alerts are fetched for this area only.',
+    default: '',
+    help: 'Nationwide, or one state / territory. Nationwide is busy — pair it with the severity floor below.',
     options: [
-      'AL','AK','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HI','ID','IL','IN',
-      'IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH',
-      'NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT',
-      'VT','VA','WA','WV','WI','WY','PR','GU','VI','AS','MP',
-    ].map(code => ({ value: code, label: code })),
+      { value: '', label: 'Nationwide (all US)' },
+      ...AREAS.map(code => ({ value: code, label: code })),
+    ],
+  },
+  {
+    key: 'severity',
+    label: 'Fetch alerts rated',
+    type: 'select',
+    default: 'Extreme,Severe',
+    help: 'Applied by the NWS server before download. Nationwide + "all" is ~450 alerts; Extreme + Severe is ~120.',
+    options: [
+      { value: 'Extreme',                                label: 'Extreme only' },
+      { value: 'Extreme,Severe',                         label: 'Extreme + Severe (recommended nationwide)' },
+      { value: 'Extreme,Severe,Moderate',                label: 'Moderate and above' },
+      { value: 'Extreme,Severe,Moderate,Minor,Unknown',  label: 'All (fine for a single state)' },
+    ],
   },
 ];
 
@@ -79,13 +111,11 @@ const SEVERITY_MAP = {
  * tests (tests/nws.test.js) can feed a captured payload straight into
  * `normalizeNws()` without mocking fetch.
  *
- * @param {{area?: string}} opts
+ * @param {{area?: string, severity?: string}} opts
  * @returns {Promise<import('./types.js').Alert[]>}
  */
 export async function fetchAlerts(opts = {}) {
-  const area = (opts.area || 'AZ').toUpperCase();
-  const url = `https://api.weather.gov/alerts/active?area=${encodeURIComponent(area)}`;
-  const res = await fetch(url, {
+  const res = await fetch(buildUrl(opts), {
     headers: {
       // GeoJSON is the default; asking explicitly documents the dependency on
       // the `features[].properties` shape below.
@@ -94,6 +124,20 @@ export async function fetchAlerts(opts = {}) {
   });
   if (!res.ok) throw new Error(`NWS API returned HTTP ${res.status}`);
   return normalizeNws(await res.json());
+}
+
+/**
+ * Build the request URL from the per-source settings. Exported for the tests.
+ * Blank area = nationwide (no ?area= at all — the API rejects an empty value).
+ * `severity` is a comma list the API accepts verbatim.
+ */
+export function buildUrl(opts = {}) {
+  const params = new URLSearchParams();
+  const area = String(opts.area || '').trim().toUpperCase();
+  if (area) params.set('area', area);
+  const severity = String(opts.severity || 'Extreme,Severe').trim();
+  if (severity) params.set('severity', severity);
+  return `https://api.weather.gov/alerts/active?${params.toString()}`;
 }
 
 /**
@@ -166,7 +210,13 @@ export function normalizeNws(payload, now = new Date()) {
     const areaLine = areaList.length
       ? `Areas: ${areaList.slice(0, 12).join('; ')}${areaList.length > 12 ? ` (+${areaList.length - 12} more)` : ''}`
       : '';
-    const message = [g.headline, g.description, g.instruction, areaLine]
+    // Nationwide, one event can be issued by many offices; naming them tells
+    // the reader which part of the country this is without opening the card.
+    const senders = [...g.senders];
+    const senderLine = senders.length
+      ? `Issued by ${senders.slice(0, 6).join('; ')}${senders.length > 6 ? ` (+${senders.length - 6} more)` : ''}`
+      : '';
+    const message = [g.headline, g.description, g.instruction, areaLine, senderLine]
       .filter(Boolean)
       .join('\n\n');
     return makeAlert({
