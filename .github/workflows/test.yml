@@ -1,0 +1,20 @@
+# Runs the unit tests on every push and PR. The extension itself has no build
+# step, so this is the whole CI: 74 vitest cases covering the pure modules, the
+# adapters against captured payloads, and the service worker driven through a
+# chrome.* stub.
+name: tests
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test

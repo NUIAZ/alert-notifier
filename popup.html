@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+  popup.html — what opens when you click the toolbar icon.
+
+  Extension popups are ordinary HTML pages with two constraints worth knowing:
+    • They are torn down the instant they lose focus, so nothing here keeps
+      state — popup.js asks the service worker for the current alerts on every
+      open (message 'getState') and renders them.
+    • Inline <script> is blocked by the default extension CSP; the JS must be
+      in a separate file, hence <script type="module" src="popup.js">.
+  Width is fixed by CSS (popups size to content, up to 800×600).
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alert Notifier</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="popup">
+  <div class="container">
+    <header class="header">
+      <h1>Alerts</h1>
+      <div class="header-actions">
+        <button id="refreshBtn" class="btn-icon" title="Check now" aria-label="Check now">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+          </svg>
+        </button>
+        <button id="settingsBtn" class="btn-icon" title="Settings" aria-label="Settings">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+            <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.892 3.434-.901 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.892-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="status">
+      <span id="sourceLabel" class="status-source"></span>
+      <span id="lastChecked" aria-live="polite">Last checked: never</span>
+    </div>
+
+    <div id="errorBanner" class="error-banner hidden" role="alert">
+      <span id="errorMessage"></span>
+    </div>
+
+    <div id="alertList" class="alert-list" role="list"></div>
+
+    <div id="noAlerts" class="no-alerts hidden">
+      <svg width="48" height="48" viewBox="0 0 16 16" fill="#28a745" aria-hidden="true">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+      </svg>
+      <p>All clear</p>
+      <p class="hint">Nothing active from this source right now. Try <em>Sample data</em> in Settings to see every treatment.</p>
+    </div>
+  </div>
+
+  <!--
+    One card template, cloned per alert by popup.js. Using <template> keeps the
+    markup here (where it's readable) and out of JS string concatenation. Feed
+    text is inserted with textContent / escaped, never raw.
+  -->
+  <template id="cardTemplate">
+    <article class="alert-card" role="listitem">
+      <div class="alert-header">
+        <div class="alert-severity">
+          <span class="severity-icon" aria-hidden="true"></span>
+          <span class="severity-label"></span>
+        </div>
+        <button class="dismiss-btn" title="Dismiss" aria-label="Dismiss this alert">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+          </svg>
+        </button>
+      </div>
+      <h3 class="alert-title"></h3>
+      <div class="alert-message"></div>
+      <div class="alert-times">
+        <span class="alert-start"></span>
+        <span class="alert-end"></span>
+      </div>
+      <div class="alert-actions">
+        <label class="silence-checkbox">
+          <input type="checkbox">
+          <span>Don't notify me again for this alert</span>
+        </label>
+        <a class="alert-link" target="_blank" rel="noopener noreferrer" hidden>Details ↗</a>
+      </div>
+    </article>
+  </template>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

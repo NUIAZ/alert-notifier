@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.zip
+coverage/
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+__pycache__/

@@ -1,0 +1,18 @@
+{
+  "name": "alert-notifier",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Manifest V3 browser extension that polls a public alert feed (NWS weather alerts, GitHub Status) and escalates new alerts through a toolbar badge, OS notifications, and a modal window. No build step; the extension itself has zero dependencies. This package.json only exists for the unit tests.",
+  "license": "MIT",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "icons": "python icons/make_icons.py",
+    "package": "node scripts/package.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0",
+    "vitest": "^3.2.0"
+  }
+}

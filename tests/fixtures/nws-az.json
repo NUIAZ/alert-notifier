@@ -1,0 +1,626 @@
+{
+ "@context": [
+  "https://geojson.org/geojson-ld/geojson-context.jsonld",
+  {
+   "@version": "1.1",
+   "wx": "https://api.weather.gov/ontology#",
+   "@vocab": "https://api.weather.gov/ontology#"
+  }
+ ],
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.100e8a8a9b501102c576e99a7a80bb2161bde297.001.1",
+   "type": "Feature",
+   "geometry": null,
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.100e8a8a9b501102c576e99a7a80bb2161bde297.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.100e8a8a9b501102c576e99a7a80bb2161bde297.001.1",
+    "areaDesc": "Parker Valley; Kofa; Yuma; Central La Paz; Southeast Yuma County; Gila River Valley; Imperial County Southwest; Imperial County Southeast; Imperial County West; Imperial Valley; Palo Verde Valley; Chuckwalla Valley",
+    "geocode": {
+     "SAME": [
+      "004012",
+      "004027",
+      "006025",
+      "006065"
+     ],
+     "UGC": [
+      "AZZ530",
+      "AZZ531",
+      "AZZ532",
+      "AZZ533",
+      "AZZ535",
+      "AZZ536",
+      "CAZ562",
+      "CAZ565",
+      "CAZ566",
+      "CAZ567",
+      "CAZ569",
+      "CAZ570"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/forecast/AZZ530",
+     "https://api.weather.gov/zones/forecast/AZZ531",
+     "https://api.weather.gov/zones/forecast/AZZ532",
+     "https://api.weather.gov/zones/forecast/AZZ533",
+     "https://api.weather.gov/zones/forecast/AZZ535",
+     "https://api.weather.gov/zones/forecast/AZZ536",
+     "https://api.weather.gov/zones/forecast/CAZ562",
+     "https://api.weather.gov/zones/forecast/CAZ565",
+     "https://api.weather.gov/zones/forecast/CAZ566",
+     "https://api.weather.gov/zones/forecast/CAZ567",
+     "https://api.weather.gov/zones/forecast/CAZ569",
+     "https://api.weather.gov/zones/forecast/CAZ570"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9e152450d558ef1c614c7d6e118d398c6acb22fe.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.9e152450d558ef1c614c7d6e118d398c6acb22fe.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-08-17T00:03:00-07:00"
+     }
+    ],
+    "sent": "2026-08-17T11:47:00-07:00",
+    "effective": "2026-08-17T11:47:00-07:00",
+    "onset": "2026-08-17T11:47:00-07:00",
+    "expires": "2026-08-18T03:00:00-07:00",
+    "ends": "2026-08-21T20:00:00-07:00",
+    "status": "Actual",
+    "messageType": "Update",
+    "category": "Met",
+    "severity": "Severe",
+    "certainty": "Likely",
+    "urgency": "Expected",
+    "event": "Extreme Heat Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Phoenix AZ",
+    "headline": "Extreme Heat Warning issued August 17 at 11:47AM MST until August 21 at 8:00PM MST by NWS Phoenix AZ",
+    "description": "* WHAT...Dangerously hot and humid conditions. Afternoon temperatures\n106 to 114 expected. Major Heat Risk.\n\n* WHERE...Portions of southwest Arizona and southeast California.\n\n* WHEN...Until 8 PM MST /8 PM PDT/ Friday.\n\n* IMPACTS...Heat related illnesses increase significantly during\nextreme heat events. Overexposure can cause heat cramps and heat\nexhaustion to develop and, without intervention, can lead to heat\nstroke.",
+    "instruction": "An Extreme Heat Warning means that a period of very hot temperatures,\neven by local standards, will occur. Actions should be taken to\nlessen the impact of the extreme heat.\n\nTake extra precautions if you work or spend time outside. When\npossible, reschedule strenuous activities to early morning or\nevening. Know the signs and symptoms of heat exhaustion and heat\nstroke. Wear lightweight and loose-fitting clothing when possible and\ndrink plenty of water.\n\nTo reduce risk during outdoor work, the Occupational Safety and\nHealth Administration recommends scheduling frequent rest breaks in\nshaded or air conditioned environments. Anyone overcome by heat\nshould be moved to a cool and shaded location. Heat stroke is an\nemergency! Call 9 1 1.\n\nPublic cooling shelters are available in some areas. Consult county\nofficials for more details.",
+    "response": "Execute",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "NPWPSR"
+     ],
+     "WMOidentifier": [
+      "WWUS75 KPSR 171847"
+     ],
+     "NWSheadline": [
+      "EXTREME HEAT WARNING REMAINS IN EFFECT UNTIL 8 PM MST /8 PM PDT/ FRIDAY"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "VTEC": [
+      "/O.CON.KPSR.XH.W.0008.000000T0000Z-260822T0300Z/"
+     ],
+     "eventEndingTime": [
+      "2026-08-21T20:00:00-07:00"
+     ],
+     "expiredReferences": [
+      "w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.66e64a6b58c13b074115671e6e34b51cbaff624a.001.1,2026-08-16T11:19:00-07:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.a1a06ec16ef343fde5e4c863a13b991297ffff27.002.1,2026-08-15T22:48:00-07:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.08e6fd8196840ab587217f099ad3cfa390525397.001.2,2026-08-15T10:05:00-07:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "NWS"
+     ],
+     "NationalWeatherService": [
+      "XHW"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.100e8a8a9b501102c576e99a7a80bb2161bde297.002.1",
+   "type": "Feature",
+   "geometry": null,
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.100e8a8a9b501102c576e99a7a80bb2161bde297.002.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.100e8a8a9b501102c576e99a7a80bb2161bde297.002.1",
+    "areaDesc": "Aguila Valley; Tonopah Desert; Gila Bend; Cave Creek/New River; Fountain Hills/East Mesa; Northwest Pinal County; West Pinal County; Apache Junction/Gold Canyon; Sonoran Desert Natl Monument",
+    "geocode": {
+     "SAME": [
+      "004013",
+      "004021"
+     ],
+     "UGC": [
+      "AZZ534",
+      "AZZ538",
+      "AZZ539",
+      "AZZ541",
+      "AZZ549",
+      "AZZ553",
+      "AZZ554",
+      "AZZ555",
+      "AZZ559"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/forecast/AZZ534",
+     "https://api.weather.gov/zones/forecast/AZZ538",
+     "https://api.weather.gov/zones/forecast/AZZ539",
+     "https://api.weather.gov/zones/forecast/AZZ541",
+     "https://api.weather.gov/zones/forecast/AZZ549",
+     "https://api.weather.gov/zones/forecast/AZZ553",
+     "https://api.weather.gov/zones/forecast/AZZ554",
+     "https://api.weather.gov/zones/forecast/AZZ555",
+     "https://api.weather.gov/zones/forecast/AZZ559"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9e152450d558ef1c614c7d6e118d398c6acb22fe.002.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.9e152450d558ef1c614c7d6e118d398c6acb22fe.002.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-08-17T00:03:00-07:00"
+     }
+    ],
+    "sent": "2026-08-17T11:47:00-07:00",
+    "effective": "2026-08-17T11:47:00-07:00",
+    "onset": "2026-08-17T11:47:00-07:00",
+    "expires": "2026-08-18T03:00:00-07:00",
+    "ends": "2026-08-21T20:00:00-07:00",
+    "status": "Actual",
+    "messageType": "Update",
+    "category": "Met",
+    "severity": "Severe",
+    "certainty": "Likely",
+    "urgency": "Expected",
+    "event": "Extreme Heat Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Phoenix AZ",
+    "headline": "Extreme Heat Warning issued August 17 at 11:47AM MST until August 21 at 8:00PM MST by NWS Phoenix AZ",
+    "description": "* WHAT...Dangerously hot conditions. Afternoon temperatures 105 to\n113 expected. Major Heat Risk.\n\n* WHERE...Aguila Valley, Apache Junction/Gold Canyon, Cave Creek/New\nRiver, Fountain Hills/East Mesa, Gila Bend, Northwest Pinal County,\nSonoran Desert Natl Monument, and Tonopah Desert.\n\n* WHEN...Until 8 PM MST Friday.\n\n* IMPACTS...Heat related illnesses increase significantly during\nextreme heat events. Overexposure can cause heat cramps and heat\nexhaustion to develop and, without intervention, can lead to heat\nstroke.\n\n* ADDITIONAL DETAILS...In Maricopa County, call 2-1-1 to find a free\ncooling center, transportation, water and more.\nhttps://www.maricopa.gov/heat",
+    "instruction": "An Extreme Heat Warning means that a period of very hot temperatures,\neven by local standards, will occur. Actions should be taken to\nlessen the impact of the extreme heat.\n\nTake extra precautions if you work or spend time outside. When\npossible, reschedule strenuous activities to early morning or\nevening. Know the signs and symptoms of heat exhaustion and heat\nstroke. Wear lightweight and loose-fitting clothing when possible and\ndrink plenty of water.\n\nTo reduce risk during outdoor work, the Occupational Safety and\nHealth Administration recommends scheduling frequent rest breaks in\nshaded or air conditioned environments. Anyone overcome by heat\nshould be moved to a cool and shaded location. Heat stroke is an\nemergency! Call 9 1 1.\n\nPublic cooling shelters are available in some areas. Consult county\nofficials for more details.",
+    "response": "Execute",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "NPWPSR"
+     ],
+     "WMOidentifier": [
+      "WWUS75 KPSR 171847"
+     ],
+     "NWSheadline": [
+      "EXTREME HEAT WARNING REMAINS IN EFFECT UNTIL 8 PM MST FRIDAY"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "VTEC": [
+      "/O.CON.KPSR.XH.W.0008.000000T0000Z-260822T0300Z/"
+     ],
+     "eventEndingTime": [
+      "2026-08-21T20:00:00-07:00"
+     ],
+     "expiredReferences": [
+      "w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.66e64a6b58c13b074115671e6e34b51cbaff624a.002.1,2026-08-16T11:19:00-07:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.a1a06ec16ef343fde5e4c863a13b991297ffff27.003.1,2026-08-15T22:48:00-07:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.08e6fd8196840ab587217f099ad3cfa390525397.002.2,2026-08-15T10:05:00-07:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "NWS"
+     ],
+     "NationalWeatherService": [
+      "XHW"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.100e8a8a9b501102c576e99a7a80bb2161bde297.004.1",
+   "type": "Feature",
+   "geometry": null,
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.100e8a8a9b501102c576e99a7a80bb2161bde297.004.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.100e8a8a9b501102c576e99a7a80bb2161bde297.004.1",
+    "areaDesc": "San Carlos",
+    "geocode": {
+     "SAME": [
+      "004007"
+     ],
+     "UGC": [
+      "AZZ560"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/forecast/AZZ560"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9e152450d558ef1c614c7d6e118d398c6acb22fe.004.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.9e152450d558ef1c614c7d6e118d398c6acb22fe.004.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-08-17T00:03:00-07:00"
+     }
+    ],
+    "sent": "2026-08-17T11:47:00-07:00",
+    "effective": "2026-08-17T11:47:00-07:00",
+    "onset": "2026-08-18T10:00:00-07:00",
+    "expires": "2026-08-18T03:00:00-07:00",
+    "ends": "2026-08-21T20:00:00-07:00",
+    "status": "Actual",
+    "messageType": "Update",
+    "category": "Met",
+    "severity": "Severe",
+    "certainty": "Likely",
+    "urgency": "Expected",
+    "event": "Extreme Heat Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Phoenix AZ",
+    "headline": "Extreme Heat Warning issued August 17 at 11:47AM MST until August 21 at 8:00PM MST by NWS Phoenix AZ",
+    "description": "* WHAT...Dangerously hot conditions. Afternoon temperatures 102 to\n109 expected. Major Heat Risk.\n\n* WHERE...San Carlos.\n\n* WHEN...From 10 AM Tuesday to 8 PM MST Friday.\n\n* IMPACTS...Heat related illnesses increase significantly during\nextreme heat events. Overexposure can cause heat cramps and heat\nexhaustion to develop and, without intervention, can lead to heat\nstroke.",
+    "instruction": "An Extreme Heat Warning means that a period of very hot temperatures,\neven by local standards, will occur. Actions should be taken to\nlessen the impact of the extreme heat.\n\nTake extra precautions if you work or spend time outside. When\npossible, reschedule strenuous activities to early morning or\nevening. Know the signs and symptoms of heat exhaustion and heat\nstroke. Wear lightweight and loose-fitting clothing when possible and\ndrink plenty of water.\n\nTo reduce risk during outdoor work, the Occupational Safety and\nHealth Administration recommends scheduling frequent rest breaks in\nshaded or air conditioned environments. Anyone overcome by heat\nshould be moved to a cool and shaded location. Heat stroke is an\nemergency! Call 9 1 1.\n\nPublic cooling shelters are available in some areas. Consult county\nofficials for more details.",
+    "response": "Execute",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "NPWPSR"
+     ],
+     "WMOidentifier": [
+      "WWUS75 KPSR 171847"
+     ],
+     "NWSheadline": [
+      "EXTREME HEAT WARNING REMAINS IN EFFECT FROM 10 AM TUESDAY TO 8 PM MST FRIDAY"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "VTEC": [
+      "/O.CON.KPSR.XH.W.0008.260818T1700Z-260822T0300Z/"
+     ],
+     "eventEndingTime": [
+      "2026-08-21T20:00:00-07:00"
+     ],
+     "expiredReferences": [
+      "w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.66e64a6b58c13b074115671e6e34b51cbaff624a.004.1,2026-08-16T11:19:00-07:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.a1a06ec16ef343fde5e4c863a13b991297ffff27.001.1,2026-08-15T22:48:00-07:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "NWS"
+     ],
+     "NationalWeatherService": [
+      "XHW"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.100e8a8a9b501102c576e99a7a80bb2161bde297.003.1",
+   "type": "Feature",
+   "geometry": null,
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.100e8a8a9b501102c576e99a7a80bb2161bde297.003.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.100e8a8a9b501102c576e99a7a80bb2161bde297.003.1",
+    "areaDesc": "Northwest Valley; Buckeye/Avondale; Deer Valley; Central Phoenix; North Phoenix/Glendale; Scottsdale/Paradise Valley; East Valley; South Mountain/Ahwatukee; Southeast Valley/Queen Creek",
+    "geocode": {
+     "SAME": [
+      "004013"
+     ],
+     "UGC": [
+      "AZZ537",
+      "AZZ540",
+      "AZZ542",
+      "AZZ543",
+      "AZZ544",
+      "AZZ546",
+      "AZZ548",
+      "AZZ550",
+      "AZZ551"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/forecast/AZZ537",
+     "https://api.weather.gov/zones/forecast/AZZ540",
+     "https://api.weather.gov/zones/forecast/AZZ542",
+     "https://api.weather.gov/zones/forecast/AZZ543",
+     "https://api.weather.gov/zones/forecast/AZZ544",
+     "https://api.weather.gov/zones/forecast/AZZ546",
+     "https://api.weather.gov/zones/forecast/AZZ548",
+     "https://api.weather.gov/zones/forecast/AZZ550",
+     "https://api.weather.gov/zones/forecast/AZZ551"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9e152450d558ef1c614c7d6e118d398c6acb22fe.003.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.9e152450d558ef1c614c7d6e118d398c6acb22fe.003.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-08-17T00:03:00-07:00"
+     }
+    ],
+    "sent": "2026-08-17T11:47:00-07:00",
+    "effective": "2026-08-17T11:47:00-07:00",
+    "onset": "2026-08-17T11:47:00-07:00",
+    "expires": "2026-08-18T03:00:00-07:00",
+    "ends": "2026-08-21T20:00:00-07:00",
+    "status": "Actual",
+    "messageType": "Update",
+    "category": "Met",
+    "severity": "Severe",
+    "certainty": "Likely",
+    "urgency": "Expected",
+    "event": "Extreme Heat Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Phoenix AZ",
+    "headline": "Extreme Heat Warning issued August 17 at 11:47AM MST until August 21 at 8:00PM MST by NWS Phoenix AZ",
+    "description": "* WHAT...Dangerously hot conditions. Afternoon temperatures 108 to\n112 expected. Major Heat Risk.\n\n* WHERE...The Phoenix metropolitan area.\n\n* WHEN...Until 8 PM MST Friday.\n\n* IMPACTS...Heat related illnesses increase significantly during\nextreme heat events. Overexposure can cause heat cramps and heat\nexhaustion to develop and, without intervention, can lead to heat\nstroke.\n\n* ADDITIONAL DETAILS...In Maricopa County, call 2-1-1 to find a free\ncooling center, transportation, water and more.\nhttps://www.maricopa.gov/heat",
+    "instruction": "An Extreme Heat Warning means that a period of very hot temperatures,\neven by local standards, will occur. Actions should be taken to\nlessen the impact of the extreme heat.\n\nTake extra precautions if you work or spend time outside. When\npossible, reschedule strenuous activities to early morning or\nevening. Know the signs and symptoms of heat exhaustion and heat\nstroke. Wear lightweight and loose-fitting clothing when possible and\ndrink plenty of water.\n\nTo reduce risk during outdoor work, the Occupational Safety and\nHealth Administration recommends scheduling frequent rest breaks in\nshaded or air conditioned environments. Anyone overcome by heat\nshould be moved to a cool and shaded location. Heat stroke is an\nemergency! Call 9 1 1.\n\nPublic cooling shelters are available in some areas. Consult county\nofficials for more details.",
+    "response": "Execute",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "NPWPSR"
+     ],
+     "WMOidentifier": [
+      "WWUS75 KPSR 171847"
+     ],
+     "NWSheadline": [
+      "EXTREME HEAT WARNING REMAINS IN EFFECT UNTIL 8 PM MST FRIDAY"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "VTEC": [
+      "/O.CON.KPSR.XH.W.0008.000000T0000Z-260822T0300Z/"
+     ],
+     "eventEndingTime": [
+      "2026-08-21T20:00:00-07:00"
+     ],
+     "expiredReferences": [
+      "w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.66e64a6b58c13b074115671e6e34b51cbaff624a.003.1,2026-08-16T11:19:00-07:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.a1a06ec16ef343fde5e4c863a13b991297ffff27.004.1,2026-08-15T22:48:00-07:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.08e6fd8196840ab587217f099ad3cfa390525397.003.2,2026-08-15T10:05:00-07:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "NWS"
+     ],
+     "NationalWeatherService": [
+      "XHW"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ee5e50c629e52b7ffa626869d2c307d737ceaa0d.001.1",
+   "type": "Feature",
+   "geometry": null,
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ee5e50c629e52b7ffa626869d2c307d737ceaa0d.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.ee5e50c629e52b7ffa626869d2c307d737ceaa0d.001.1",
+    "areaDesc": "Western Pima County Including Ajo/Organ Pipe Cactus National Monument; Tohono O'odham Nation including Sells; Tucson Metro Area including Tucson/Green Valley/Marana/Vail; South Central Pinal County including Eloy/Picacho Peak State Park; Southeast Pinal County including Kearny/Mammoth/Oracle; Upper Gila River and Aravaipa Valleys including Clifton/Safford",
+    "geocode": {
+     "SAME": [
+      "004019",
+      "004021",
+      "004009",
+      "004011"
+     ],
+     "UGC": [
+      "AZZ501",
+      "AZZ502",
+      "AZZ504",
+      "AZZ505",
+      "AZZ506",
+      "AZZ509"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/forecast/AZZ501",
+     "https://api.weather.gov/zones/forecast/AZZ502",
+     "https://api.weather.gov/zones/forecast/AZZ504",
+     "https://api.weather.gov/zones/forecast/AZZ505",
+     "https://api.weather.gov/zones/forecast/AZZ506",
+     "https://api.weather.gov/zones/forecast/AZZ509"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a200d1bcef13e98359c5bfe2141d5612bf716595.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.a200d1bcef13e98359c5bfe2141d5612bf716595.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-08-17T00:25:00-07:00"
+     }
+    ],
+    "sent": "2026-08-17T11:44:00-07:00",
+    "effective": "2026-08-17T11:44:00-07:00",
+    "onset": "2026-08-17T11:44:00-07:00",
+    "expires": "2026-08-18T05:00:00-07:00",
+    "ends": "2026-08-21T20:00:00-07:00",
+    "status": "Actual",
+    "messageType": "Update",
+    "category": "Met",
+    "severity": "Severe",
+    "certainty": "Likely",
+    "urgency": "Expected",
+    "event": "Extreme Heat Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Tucson AZ",
+    "headline": "Extreme Heat Warning issued August 17 at 11:44AM MST until August 21 at 8:00PM MST by NWS Tucson AZ",
+    "description": "* WHAT...Dangerously hot conditions with high temperatures ranging\nbetween 103 to 110 degrees and low temperatures 79 to 85 degrees.\nMajor HeatRisk is expected.\n\n* WHERE...Pinal County, Tohono O'odham Nation, Tucson Metro Area,\nUpper Gila River Valley, and Western Pima County.\n\n* WHEN...Until 8 PM MST Friday.\n\n* IMPACTS...Heat related illnesses increase significantly during\nextreme heat events.",
+    "instruction": "To reduce risk during outdoor work, the Occupational Safety and\nHealth Administration recommends scheduling frequent rest breaks in\nshaded or air conditioned environments. Anyone overcome by heat\nshould be moved to a cool and shaded location. Heat stroke is an\nemergency! Call 9 1 1.\n\nTake extra precautions if you work or spend time outside. When\npossible, reschedule strenuous activities to early morning or\nevening. Know the signs and symptoms of heat exhaustion and heat\nstroke. Wear lightweight and loose fitting clothing when possible and\ndrink plenty of water.",
+    "response": "Execute",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "NPWTWC"
+     ],
+     "WMOidentifier": [
+      "WWUS75 KTWC 171844"
+     ],
+     "NWSheadline": [
+      "EXTREME HEAT WARNING REMAINS IN EFFECT UNTIL 8 PM MST FRIDAY"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "VTEC": [
+      "/O.CON.KTWC.XH.W.0006.000000T0000Z-260822T0300Z/"
+     ],
+     "eventEndingTime": [
+      "2026-08-21T20:00:00-07:00"
+     ],
+     "expiredReferences": [
+      "w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.9ddd8b465ec319824f3270e52ed6815c3b85cf58.001.1,2026-08-16T13:43:00-07:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.321e2cb23c4a4c0d37f12d753d6e5f70218af2b6.001.1,2026-08-16T00:41:00-07:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.7ef79ce1d43aa1ca7cd547e5f5dfe979423d5522.001.2,2026-08-15T09:12:00-07:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "NWS"
+     ],
+     "NationalWeatherService": [
+      "XHW"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6ed2f50f5820d8ded24f8001728db131fe19fbd8.001.2",
+   "type": "Feature",
+   "geometry": null,
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6ed2f50f5820d8ded24f8001728db131fe19fbd8.001.2",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.6ed2f50f5820d8ded24f8001728db131fe19fbd8.001.2",
+    "areaDesc": "Lake Havasu and Fort Mohave; Lake Mead - AZ side; Lake Mohave - AZ side; Hualapai Mountains; Northwest Deserts; Death Valley National Park; Eastern Mojave Desert, Including the Mojave National Preserve; Morongo Basin; Cadiz Basin; San Bernardino County-Upper Colorado River Valley; Northeast Clark County; Western Clark and Southern Nye County; Las Vegas Valley; Southern Clark County; Lake Mead - NV side; Lake Mohave - NV side",
+    "geocode": {
+     "SAME": [
+      "004015",
+      "006027",
+      "006071",
+      "032003",
+      "032023"
+     ],
+     "UGC": [
+      "AZZ002",
+      "AZZ570",
+      "AZZ571",
+      "AZZ575",
+      "AZZ576",
+      "CAZ522",
+      "CAZ524",
+      "CAZ525",
+      "CAZ526",
+      "CAZ527",
+      "NVZ016",
+      "NVZ017",
+      "NVZ020",
+      "NVZ022",
+      "NVZ025",
+      "NVZ026"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/forecast/AZZ002",
+     "https://api.weather.gov/zones/forecast/AZZ570",
+     "https://api.weather.gov/zones/forecast/AZZ571",
+     "https://api.weather.gov/zones/forecast/AZZ575",
+     "https://api.weather.gov/zones/forecast/AZZ576",
+     "https://api.weather.gov/zones/forecast/CAZ522",
+     "https://api.weather.gov/zones/forecast/CAZ524",
+     "https://api.weather.gov/zones/forecast/CAZ525",
+     "https://api.weather.gov/zones/forecast/CAZ526",
+     "https://api.weather.gov/zones/forecast/CAZ527",
+     "https://api.weather.gov/zones/forecast/NVZ016",
+     "https://api.weather.gov/zones/forecast/NVZ017",
+     "https://api.weather.gov/zones/forecast/NVZ020",
+     "https://api.weather.gov/zones/forecast/NVZ022",
+     "https://api.weather.gov/zones/forecast/NVZ025",
+     "https://api.weather.gov/zones/forecast/NVZ026"
+    ],
+    "references": [],
+    "sent": "2026-08-17T02:14:00-07:00",
+    "effective": "2026-08-17T02:14:00-07:00",
+    "onset": "2026-08-18T10:00:00-07:00",
+    "expires": "2026-08-17T16:00:00-07:00",
+    "ends": "2026-08-21T20:00:00-07:00",
+    "status": "Actual",
+    "messageType": "Alert",
+    "category": "Met",
+    "severity": "Severe",
+    "certainty": "Likely",
+    "urgency": "Expected",
+    "event": "Extreme Heat Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Las Vegas NV",
+    "headline": "Extreme Heat Warning issued August 17 at 2:14AM PDT until August 21 at 8:00PM PDT by NWS Las Vegas NV",
+    "description": "* WHAT...Dangerously hot conditions with temperatures up to 115 to\n118 degrees expected through Death Valley and the lower Colorado\nRiver Valley, with highs between 107 to 110 degrees elsewhere.\n\n* WHERE...Portions of northwest Arizona, southeast California, and\nsouthern Nevada.\n\n* WHEN...From 10 AM PDT / MST Tuesday to 8 PM PDT / MST Friday.\n\n* IMPACTS...Heat-related illnesses increase significantly during\nextreme heat events.",
+    "instruction": "Drink plenty of fluids, stay in an air-conditioned room, stay out of\nthe sun, and check up on relatives and neighbors.\n\nDo not leave young children and pets in unattended vehicles. Car\ninteriors will reach lethal temperatures in a matter of minutes.\n\nTake extra precautions when outside. Wear lightweight and\nloose-fitting clothing. Try to limit strenuous activities to early\nmorning or evening. Take action when you see symptoms of heat\nexhaustion and heat stroke.\n\nTo reduce risk during outdoor work, the Occupational Safety and\nHealth Administration recommends scheduling frequent rest breaks in\nshaded or air conditioned environments. Anyone overcome by heat\nshould be moved to a cool and shaded location. Heat stroke is an\nemergency! Call 9 1 1.\n\nMonitor the latest forecasts and warnings for updates.",
+    "response": "Execute",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "NPWVEF"
+     ],
+     "WMOidentifier": [
+      "WWUS75 KVEF 170914"
+     ],
+     "NWSheadline": [
+      "EXTREME HEAT WARNING IN EFFECT FROM 10 AM PDT / MST TUESDAY TO 8 PM PDT / MST FRIDAY"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "VTEC": [
+      "/O.NEW.KVEF.XH.W.0004.260818T1700Z-260822T0300Z/"
+     ],
+     "eventEndingTime": [
+      "2026-08-21T20:00:00-07:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "NWS"
+     ],
+     "NationalWeatherService": [
+      "XHW"
+     ]
+    }
+   }
+  }
+ ],
+ "title": "Current watches, warnings, and advisories for Arizona",
+ "updated": "2026-08-17T19:04:15+00:00"
+}

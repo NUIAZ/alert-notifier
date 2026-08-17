@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+  options.html — the settings page (right-click the icon → Options, or the gear
+  in the popup). Opens in a full tab.
+
+  Everything source-specific is generated: options.js reads the registry in
+  sources/index.js, fills the "Data source" dropdown, and renders each source's
+  declared `settings` into #sourceSettings when it is selected. Adding a feed
+  never means editing this file.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alert Notifier — Settings</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="options">
+  <main class="options-container">
+    <header class="options-header">
+      <img src="icons/icon48.png" width="40" height="40" alt="">
+      <div>
+        <h1>Alert Notifier settings</h1>
+        <p class="muted">Changes save automatically and take effect on the next check.</p>
+      </div>
+    </header>
+
+    <form id="settingsForm" autocomplete="off">
+      <section class="card">
+        <h2>Data source</h2>
+        <div class="field">
+          <label for="sourceId">Feed</label>
+          <select id="sourceId" name="sourceId"></select>
+          <p id="sourceDescription" class="help"></p>
+        </div>
+        <!-- Per-source fields are rendered here by options.js -->
+        <div id="sourceSettings"></div>
+      </section>
+
+      <section class="card">
+        <h2>Checking</h2>
+        <div class="field">
+          <label for="pollIntervalMinutes">Check every (minutes)</label>
+          <input type="number" id="pollIntervalMinutes" name="pollIntervalMinutes" min="5" max="1440" step="1">
+          <p class="help">Minimum 5. Public APIs ask clients to be polite; 15 is a good default.</p>
+        </div>
+        <div class="field">
+          <label for="minSeverity">Ignore anything below</label>
+          <select id="minSeverity" name="minSeverity">
+            <option value="info">Info (show everything)</option>
+            <option value="warning">Warning</option>
+            <option value="serious">Serious</option>
+            <option value="critical">Critical only</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>How to interrupt me</h2>
+        <div class="field checkbox">
+          <input type="checkbox" id="enableNotifications" name="enableNotifications">
+          <label for="enableNotifications">
+            System notifications for new alerts
+            <span class="help">Critical and serious ones stay on screen until acted on; the rest auto-hide.</span>
+          </label>
+        </div>
+        <div class="field checkbox">
+          <input type="checkbox" id="enableModal" name="enableModal">
+          <label for="enableModal">
+            Pop-up window for critical and serious alerts
+            <span class="help">A small always-visible window that stays until you acknowledge it.</span>
+          </label>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Test &amp; reset</h2>
+        <p class="help">
+          <strong>Test notifications</strong> forgets what has already been shown and re-runs a check, so every
+          currently-active alert fires again — badge, toast, and pop-up. Switch the feed to
+          <em>Sample data</em> first to see all four severities at once.
+        </p>
+        <div class="button-row">
+          <button type="button" id="testBtn" class="btn btn-primary">Test notifications</button>
+          <button type="button" id="checkBtn" class="btn">Check now</button>
+          <button type="button" id="resetBtn" class="btn btn-danger">Reset to defaults</button>
+        </div>
+        <p id="statusLine" class="status-line" role="status" aria-live="polite"></p>
+      </section>
+    </form>
+
+    <footer class="options-footer muted">
+      Alert Notifier · <a id="readmeLink" href="https://github.com/mattrogers587-source/alert-notifier" target="_blank" rel="noopener noreferrer">README &amp; source</a>
+    </footer>
+  </main>
+  <script type="module" src="options.js"></script>
+</body>
+</html>

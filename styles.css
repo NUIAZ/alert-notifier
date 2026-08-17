@@ -1,0 +1,172 @@
+/*
+ * styles.css — one stylesheet for all three extension pages. Which page you
+ * are on is a class on <body>: .popup, .modal, .options. Colours per severity
+ * are set inline (cards, from lib/severity.js) or via body.severity-* (modal),
+ * so JS and CSS agree on exactly one palette.
+ *
+ * Dark mode: honours prefers-color-scheme for the popup and options page. The
+ * modal is always its severity colour — that's the point of it.
+ */
+
+:root {
+  --bg: #ffffff;
+  --fg: #1f2328;
+  --muted: #59636e;
+  --border: #d0d7de;
+  --card: #f6f8fa;
+  --accent: #0d6efd;
+  --danger: #dc3545;
+  --ok: #28a745;
+  --radius: 10px;
+  --shadow: 0 1px 2px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.06);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d1117;
+    --fg: #e6edf3;
+    --muted: #9198a1;
+    --border: #30363d;
+    --card: #161b22;
+  }
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); }
+.hidden, [hidden] { display: none !important; }  /* [hidden] loses to any author `display`, so restate it */
+.muted { color: var(--muted); }
+p { margin: 0 0 .5em; }
+a { color: var(--accent); }
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+.btn {
+  font: inherit; cursor: pointer; padding: 8px 14px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--card); color: var(--fg);
+}
+.btn:hover { filter: brightness(.96); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn-danger { color: var(--danger); }
+.btn:focus-visible, .btn-icon:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px;
+}
+.btn-icon {
+  background: none; border: none; cursor: pointer; padding: 6px; border-radius: 6px;
+  color: var(--muted); display: inline-flex; line-height: 0;
+}
+.btn-icon:hover { background: var(--card); color: var(--fg); }
+.btn-icon.spinning svg { animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Popup ───────────────────────────────────────────────────────────────── */
+body.popup { width: 380px; max-height: 580px; overflow-y: auto; }
+.popup .container { padding: 12px 12px 14px; }
+.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+.header h1 { font-size: 16px; margin: 0; }
+.header-actions { display: flex; gap: 2px; }
+.status { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+.status-source { font-weight: 600; }
+.error-banner {
+  background: #fff3cd; color: #664d03; border: 1px solid #ffe69c; border-radius: 8px;
+  padding: 8px 10px; font-size: 12px; margin-bottom: 10px; word-break: break-word;
+}
+@media (prefers-color-scheme: dark) {
+  .error-banner { background: #3a2f00; color: #ffe69c; border-color: #665400; }
+}
+.alert-list { display: flex; flex-direction: column; gap: 10px; }
+
+.alert-card {
+  border-radius: var(--radius); padding: 12px 12px 10px; box-shadow: var(--shadow);
+  transition: opacity .18s ease, transform .18s ease;
+}
+.alert-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.alert-severity { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: .06em; }
+.severity-icon svg { width: 18px; height: 18px; display: block; }
+.dismiss-btn {
+  background: rgba(255,255,255,.18); border: none; color: inherit; cursor: pointer;
+  border-radius: 6px; padding: 4px; line-height: 0; opacity: .85;
+}
+.dismiss-btn:hover { opacity: 1; background: rgba(255,255,255,.3); }
+.alert-card[data-severity="warning"] .dismiss-btn { background: rgba(0,0,0,.08); }
+.alert-title { font-size: 15px; margin: 0 0 6px; line-height: 1.3; }
+.alert-message { font-size: 13px; line-height: 1.45; opacity: .95; max-height: 9.5em; overflow: hidden; position: relative; }
+.alert-message p { margin: 0 0 .45em; }
+.alert-message p:last-child { margin-bottom: 0; }
+/* Fade the bottom of long bodies so it's clear there is more (the modal or
+   Details link shows everything). popup.js adds .is-clipped only when the
+   text actually overflows, so short messages don't get a pointless band. */
+.alert-message.is-clipped::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2em;
+  background: linear-gradient(to bottom, transparent, rgba(0,0,0,.18));
+  pointer-events: none;
+}
+.alert-card[data-severity="warning"] .alert-message.is-clipped::after {
+  background: linear-gradient(to bottom, transparent, rgba(255,193,7,.9));
+}
+.alert-times { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 11px; opacity: .85; margin-top: 8px; }
+.alert-actions { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 8px; font-size: 12px; }
+.silence-checkbox { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; opacity: .9; }
+.silence-checkbox input { margin: 0; accent-color: currentColor; }
+.alert-link { color: inherit; font-weight: 600; white-space: nowrap; }
+
+.no-alerts { text-align: center; padding: 28px 12px 18px; color: var(--muted); }
+.no-alerts p { margin: 8px 0 0; }
+.no-alerts p:first-of-type { font-size: 15px; font-weight: 600; color: var(--fg); }
+.no-alerts .hint { font-size: 12px; }
+
+/* ── Modal window (alert.html) ───────────────────────────────────────────── */
+body.modal {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  padding: 18px; color: #fff; color-scheme: dark;
+}
+body.modal.severity-critical { background: #000; }
+body.modal.severity-serious  { background: #dc3545; }
+body.modal.severity-warning  { background: #ffc107; color: #000; color-scheme: light; }
+body.modal.severity-info     { background: #0d6efd; }
+.modal-card { width: 100%; max-width: 480px; text-align: center; }
+.modal-icon svg { width: 72px; height: 72px; }
+.modal-severity { font-size: 12px; font-weight: 800; letter-spacing: .14em; margin-top: 4px; opacity: .9; }
+.modal-title { font-size: 24px; margin: 8px 0 12px; line-height: 1.2; }
+.modal-message {
+  text-align: left; font-size: 14px; line-height: 1.5; max-height: 40vh; overflow-y: auto;
+  background: rgba(255,255,255,.12); border-radius: var(--radius); padding: 12px 14px;
+}
+body.modal.severity-warning .modal-message { background: rgba(0,0,0,.08); }
+.modal-times { display: flex; flex-direction: column; gap: 2px; font-size: 12px; opacity: .9; margin: 12px 0 6px; }
+.modal-link { color: inherit; font-weight: 600; display: inline-block; margin: 4px 0 8px; }
+.modal-silence { display: inline-flex; margin: 8px 0 14px; font-size: 13px; }
+.btn-ack {
+  display: block; width: 100%; padding: 12px; font-size: 15px; font-weight: 700;
+  background: #fff; color: #000; border: none; border-radius: var(--radius); cursor: pointer;
+}
+body.modal.severity-warning .btn-ack { background: #000; color: #fff; }
+.btn-ack:hover { filter: brightness(.92); }
+.modal-hint { font-size: 11px; opacity: .7; margin: 10px 0 0; }
+
+/* ── Options page ────────────────────────────────────────────────────────── */
+body.options { padding: 24px 16px 40px; }
+.options-container { max-width: 640px; margin: 0 auto; }
+.options-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+.options-header h1 { font-size: 20px; margin: 0; }
+.options-header p { margin: 2px 0 0; font-size: 13px; }
+.card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 16px 18px; margin-bottom: 14px;
+}
+.card h2 { font-size: 14px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 12px; }
+.field { margin-bottom: 14px; }
+.field:last-child { margin-bottom: 0; }
+.field label { display: block; font-weight: 600; margin-bottom: 4px; }
+.field input[type="text"], .field input[type="number"], .field select {
+  font: inherit; width: 100%; max-width: 360px; padding: 8px 10px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--bg); color: var(--fg);
+}
+.field.checkbox { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; }
+.field.checkbox input { margin-top: 3px; accent-color: var(--accent); }
+.field.checkbox label { font-weight: 600; margin: 0; }
+.help { font-size: 12px; color: var(--muted); margin: 4px 0 0; line-height: 1.45; }
+.field.checkbox .help { display: block; font-weight: 400; }
+.button-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.status-line { font-size: 13px; min-height: 1.4em; margin: 10px 0 0; color: var(--accent); }
+.options-footer { font-size: 12px; text-align: center; margin-top: 24px; }

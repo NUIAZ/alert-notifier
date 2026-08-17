@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+  alert.html — the modal window background.js opens for critical/serious alerts.
+
+  It is a separate browser window (chrome.windows.create type:'popup') rather
+  than a toast because toasts auto-hide and can be missed; this stays until the
+  user acknowledges it. The alert ID arrives in the query string; alert.js reads
+  the full record from storage so long bodies don't have to fit in a URL.
+  Escape closes it; Enter acknowledges (same as the button).
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alert</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="modal severity-critical">
+  <main class="modal-card" role="alertdialog" aria-labelledby="alertTitle" aria-describedby="alertMessage">
+    <div class="modal-icon" id="alertIcon" aria-hidden="true"></div>
+    <div class="modal-severity" id="severityLabel">CRITICAL</div>
+    <h1 class="modal-title" id="alertTitle">Loading…</h1>
+    <div class="modal-message" id="alertMessage"></div>
+    <div class="modal-times">
+      <span id="alertStart"></span>
+      <span id="alertEnd"></span>
+    </div>
+    <a id="alertLink" class="modal-link" target="_blank" rel="noopener noreferrer" hidden>Open source page ↗</a>
+
+    <label class="silence-checkbox modal-silence">
+      <input type="checkbox" id="silenceCheckbox">
+      <span>Don't show this alert again</span>
+    </label>
+
+    <button id="ackBtn" class="btn btn-ack" autofocus>Acknowledge</button>
+    <p class="modal-hint">Enter to acknowledge · Esc to close</p>
+  </main>
+  <script type="module" src="alert.js"></script>
+</body>
+</html>
