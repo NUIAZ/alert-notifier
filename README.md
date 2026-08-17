@@ -134,23 +134,30 @@ Everything autosaves.
 
 ## How it works
 
-```
- chrome.alarms (every N min)          popup.html / options.html
-          │                                    │  runtime.sendMessage
-          ▼                                    ▼
- ┌──────────────────────── background.js (service worker) ────────────────────────┐
- │  loadSettings() ─▶ getSource(id).fetchAlerts(opts) ─▶ Alert[]                   │
- │        │                                                                        │
- │        ▼  lib/state.js (pure)                                                   │
- │  activeOnly → filter ≥ minSeverity → visibleAlerts(dismissed) → newAlerts(last, │
- │  silenced) → pruneIds                                                           │
- │        │                                                                        │
- │        ├─▶ storage.local  { currentAlerts, lastIds, dismissedIds, silencedIds } │
- │        ├─▶ action.setBadgeText / Color        (count + worst severity)          │
- │        ├─▶ notifications.create               (each new alert)                  │
- │        └─▶ windows.create(alert.html?id=…)    (new critical/serious)            │
- └─────────────────────────────────────────────────────────────────────────────────┘
-```
+Everything runs in `background.js`, the Manifest V3 service worker. On install,
+on browser start, and then every N minutes via a `chrome.alarms` timer (or on
+demand when the popup or options page sends a `checkNow` message), it runs one
+poll cycle. That cycle loads the saved settings, looks up the selected source
+adapter in the registry, and asks it for alerts; the adapter does the fetch and
+returns a plain list of normalised `Alert` objects, so nothing downstream knows
+or cares whether the data came from NWS, GitHub Status, or the offline sample
+data.
+
+The worker then decides what to do with the list, using pure functions in
+`lib/state.js`. It keeps only active alerts at or above the configured minimum
+severity, drops the ones the user has dismissed to get the *visible* set, and
+compares that set against the ID snapshot from the previous poll to find what is
+*new*, skipping anything the user has silenced. That distinction is the whole
+point of the bookkeeping: dismiss hides an alert; silence keeps it visible but
+mutes it; and only genuinely new alerts get to interrupt anyone.
+
+Finally the worker acts. It writes the new snapshot and pruned dismiss/silence
+lists to `chrome.storage.local`, sets the toolbar badge to the visible count in
+the colour of the worst severity, fires an OS notification for each new alert,
+and, for new critical or serious ones, opens `alert.html` in a small popup
+window that stays until acknowledged. The popup and options pages hold no state
+of their own: they read what the worker stored and send every user action
+(dismiss, silence, refresh, settings changes) back to it as a message.
 
 Things worth knowing, all spelled out in comments in the code:
 
