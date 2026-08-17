@@ -22,7 +22,7 @@ pages, and sends nothing anywhere except those two requests.
 
 ## Installing
 
-1. Download the code: <https://github.com/mattrogers587-source/alert-notifier>
+1. Download the code: <https://github.com/NUIAZ/alert-notifier>
    → green **Code** button → **Download ZIP** → extract it somewhere permanent
    (the browser loads it from that folder every time, so don't delete it).
 2. In the address bar go to **`edge://extensions`** (Edge) or

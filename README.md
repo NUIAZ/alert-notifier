@@ -48,7 +48,7 @@ extension developers run everything, and it survives browser restarts.
 
 1. **Get the code**
    ```bash
-   git clone https://github.com/mattrogers587-source/alert-notifier.git
+   git clone https://github.com/NUIAZ/alert-notifier.git
    ```
    or download the ZIP from the green **Code** button and extract it. Node is
    **not** required to run the extension (only for the tests).
