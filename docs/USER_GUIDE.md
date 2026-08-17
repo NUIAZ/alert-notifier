@@ -1,4 +1,4 @@
-# Alert Notifier — User Guide
+# Alert Notifier: User Guide
 
 This is the non-technical guide: what the extension does, how to install it,
 and what every button means. Developers should read the
@@ -31,7 +31,7 @@ pages, and sends nothing anywhere except those two requests.
 4. Click **Load unpacked** and choose the extracted `alert-notifier` folder.
 5. Click the puzzle-piece icon in the toolbar and **pin** Alert Notifier.
 
-You'll see a round "R" icon. Within a few seconds a number may appear on it —
+You'll see a round "R" icon. Within a few seconds a number may appear on it:
 how many weather alerts are active for the default region (Arizona). Change the
 region to your state in Settings (below).
 
@@ -56,13 +56,13 @@ is the worst one:
 
 Click the icon. Each alert is a card, worst first.
 
-- **✕** (top-right of a card) — *Dismiss*. Hides it. It won't come back unless
+- **✕** (top-right of a card): *Dismiss*. Hides it. It won't come back unless
   it goes away and is re-issued later.
-- **Don't notify me again for this alert** — keeps the card but stops any
+- **Don't notify me again for this alert**: keeps the card but stops any
   further pop-ups or notifications for it. Good for a multi-day warning you
   already know about.
-- **Details ↗** — opens the alert on the source's own website.
-- **↻** — check now. **⚙** — settings.
+- **Details ↗**: opens the alert on the source's own website.
+- **↻**: check now. **⚙**: settings.
 
 Under the heading you'll see which feed is active and how long ago it was
 checked. A yellow bar means the last check failed (usually no internet); the
@@ -84,36 +84,36 @@ not re-notify you about the same thing.
 Right-click the icon → **Options**, or the ⚙ in the popup. Everything saves
 by itself.
 
-**Feed** — where alerts come from:
-- *NWS weather alerts (US)* — underneath, choose a **Region** (your state, or
-  nationwide) and which severities to **fetch**. Nationwide is busy — if you
+**Feed**: where alerts come from:
+- *NWS weather alerts (US)*: underneath, choose a **Region** (your state, or
+  nationwide) and which severities to **fetch**. Nationwide is busy; if you
   pick it, set the severities to *Extreme + Severe*.
-- *GitHub Status incidents* — GitHub's own outage feed. Usually empty (that's
+- *GitHub Status incidents*: GitHub's own outage feed. Usually empty (that's
   good news).
-- *Sample data (offline)* — five made-up alerts, one of every severity. Use it
+- *Sample data (offline)*: five made-up alerts, one of every severity. Use it
   to see what everything looks like; it never changes.
 
-**Check every** — how often to look. 15 minutes is the default; 5 is the
+**Check every**: how often to look. 15 minutes is the default; 5 is the
 minimum.
 
-**Ignore anything below** — hide low-severity alerts entirely. *Serious* keeps
+**Ignore anything below**: hide low-severity alerts entirely. *Serious* keeps
 only serious and critical.
 
-**System notifications** / **Pop-up window** — turn either treatment off.
+**System notifications** / **Pop-up window**: turn either treatment off.
 
-**Test notifications** — pretend nothing has been shown yet and check again, so
+**Test notifications**: pretend nothing has been shown yet and check again, so
 every current alert fires. Switch to *Sample data* first to see the full show.
 
-**Reset to defaults** — click twice.
+**Reset to defaults**: click twice.
 
 ## Troubleshooting
 
 | Symptom | Fix |
 |---|---|
-| No notifications appear | Windows: Settings → System → Notifications — make sure your browser is allowed and *Do not disturb* is off. macOS: System Settings → Notifications → your browser. |
+| No notifications appear | Windows: Settings → System → Notifications. Make sure your browser is allowed and *Do not disturb* is off. macOS: System Settings → Notifications → your browser. |
 | Badge shows a number but the popup says "All clear" | You have dismissed them all. Wait for the next check or press *Test notifications*. |
 | Yellow "Last check failed" bar | No internet, or the site is down. It retries on the next check. |
-| Nothing for my state | Good — no NWS alerts there right now. Try *Sample data* to confirm it's working. |
+| Nothing for my state | Good: no NWS alerts there right now. Try *Sample data* to confirm it's working. |
 | I moved/renamed the folder | The browser loses the extension. Load unpacked again from the new location. |
 
 ## Uninstalling

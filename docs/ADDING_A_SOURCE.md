@@ -1,6 +1,6 @@
 # Adding a data source
 
-Everything the extension does — badge, toasts, modal, dismiss/silence — works
+Everything the extension does (badge, toasts, modal, dismiss/silence) works
 off one normalised shape, `Alert`. A *source adapter* is a module that fetches
 something and returns `Alert[]`. Nothing else knows or cares where alerts come
 from.
@@ -17,7 +17,7 @@ exports:
 | `description` | `string` | One line under the dropdown. |
 | `hosts` | `string[]` | Match patterns for every origin you fetch from. **Must also be in `manifest.json` → `host_permissions`** or the browser blocks the request. A test enforces this. |
 | `settings` | `Array` | Optional. Per-source options; the Options page renders a form from them. |
-| `fetchAlerts(opts)` | `async (opts) => Alert[]` | The work. `opts` is the saved values for your `settings`. Throw on failure — the worker records the message and shows it in the popup. |
+| `fetchAlerts(opts)` | `async (opts) => Alert[]` | The work. `opts` is the saved values for your `settings`. Throw on failure; the worker records the message and shows it in the popup. |
 
 An `Alert`:
 
@@ -34,12 +34,12 @@ An `Alert`:
 }
 ```
 
-Use `makeAlert({...})` from `sources/types.js` to build them — it fills safe
+Use `makeAlert({...})` from `sources/types.js` to build them; it fills safe
 defaults so a missing field can't put `undefined` on a card.
 
 ## Step by step
 
-1. **Create `sources/<name>.js`.** Copy `sources/githubstatus.js` — it is the
+1. **Create `sources/<name>.js`.** Copy `sources/githubstatus.js`; it is the
    smallest real one (~40 lines with comments).
 
 2. **Map severity.** Your feed's vocabulary → our four levels. Put the table at
@@ -50,7 +50,7 @@ defaults so a missing field can't put `undefined` on a card.
 3. **Pick stable IDs.** Dismiss, silence and "is this new?" all key on `id`.
    Prefix with your source (`myfeed:123`) so two sources can't collide. If your
    feed re-issues the same alert with new IDs (NWS does), derive an ID from
-   stable fields instead — see the dedupe note in `sources/nws.js`.
+   stable fields instead: see the dedupe note in `sources/nws.js`.
 
 4. **Filter out resolved items** and set `active: false` on anything you keep
    that isn't current. `background.js` filters again defensively, but the
@@ -70,7 +70,7 @@ defaults so a missing field can't put `undefined` on a card.
      "https://status.example.com/*"
    ]
    ```
-   Then **Reload** the extension in `chrome://extensions` — host permission
+   Then **Reload** the extension in `chrome://extensions`; host permission
    changes need a reload, and on a packaged install would prompt the user.
 
 7. **Test it.** Add a captured payload to `tests/fixtures/` and a case in
@@ -100,7 +100,7 @@ Values arrive in `fetchAlerts(opts)` as `opts.region`, `opts.token`. Types:
 `fetch()` from the service worker sends cookies for the target origin if the
 user is logged in there and the host is in `host_permissions`. For token auth,
 store the token via a `settings` field and add it as a header. Do not hard-code
-secrets — the extension folder is readable by anyone with the profile.
+secrets: the extension folder is readable by anyone with the profile.
 
 ## Gotchas
 

@@ -1,10 +1,10 @@
 /**
- * scripts/package.mjs — builds dist/alert-notifier-<version>.zip, the file you
+ * scripts/package.mjs: builds dist/alert-notifier-<version>.zip, the file you
  * upload to the Chrome Web Store / Edge Add-ons dashboard, or hand to someone
  * to "Load unpacked" after extracting.
  *
  * Only runtime files go in: manifest, the three pages, lib/, sources/, icons/,
- * styles. Tests, fixtures, node_modules, docs and this script stay out — the
+ * styles. Tests, fixtures, node_modules, docs and this script stay out; the
  * store rejects packages with stray files and users don't need them.
  *
  *   npm run package

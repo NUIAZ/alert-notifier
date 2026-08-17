@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <!--
-  popup.html — what opens when you click the toolbar icon.
+  popup.html: what opens when you click the toolbar icon.
 
   Extension popups are ordinary HTML pages with two constraints worth knowing:
     • They are torn down the instant they lose focus, so nothing here keeps
-      state — popup.js asks the service worker for the current alerts on every
+      state: popup.js asks the service worker for the current alerts on every
       open (message 'getState') and renders them.
     • Inline <script> is blocked by the default extension CSP; the JS must be
       in a separate file, hence <script type="module" src="popup.js">.

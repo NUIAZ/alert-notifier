@@ -1,5 +1,5 @@
 /**
- * sources/mock.js — deterministic sample alerts, no network.
+ * sources/mock.js: deterministic sample alerts, no network.
  *
  * Purpose: a guaranteed demo. Live feeds are quiet on good days, and a
  * portfolio piece that shows "All clear" on first run has not demonstrated
@@ -12,7 +12,7 @@
  * cards always read sensibly no matter when you install.
  *
  * NOTE the deliberately inactive item at the end: it verifies the active-only
- * filter in background.js — it must never appear in the popup.
+ * filter in background.js: it must never appear in the popup.
  */
 
 import { makeAlert } from './types.js';
@@ -28,7 +28,7 @@ const MIN = 60 * 1000;
 const HOUR = 60 * MIN;
 
 /**
- * @param {object} _opts  unused — the mock takes no settings
+ * @param {object} _opts  unused, the mock takes no settings
  * @param {Date} [now]    injectable clock for tests
  */
 export async function fetchAlerts(_opts = {}, now = new Date()) {
@@ -86,7 +86,7 @@ export async function fetchAlerts(_opts = {}, now = new Date()) {
       endTime: iso(t + 1 * HOUR),
     }),
     makeAlert({
-      // Inactive on purpose — proves the active filter. Must never render.
+      // Inactive on purpose: proves the active filter. Must never render.
       id: 'mock-inactive-001',
       title: 'Resolved: database connection errors',
       message: 'This has been resolved.',

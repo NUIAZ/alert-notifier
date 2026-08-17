@@ -1,5 +1,5 @@
 /**
- * tests/background.test.js — the service worker, driven through the chrome
+ * tests/background.test.js: the service worker, driven through the chrome
  * stub. Uses the mock source so no network is involved, and asserts on the
  * observable outputs: storage contents, badge calls, notifications, modal
  * windows. Each test re-imports background.js fresh (vi.resetModules) because

@@ -1,11 +1,11 @@
 /*
- * styles.css — one stylesheet for all three extension pages. Which page you
+ * styles.css: one stylesheet for all three extension pages. Which page you
  * are on is a class on <body>: .popup, .modal, .options. Colours per severity
  * are set inline (cards, from lib/severity.js) or via body.severity-* (modal),
  * so JS and CSS agree on exactly one palette.
  *
  * Dark mode: honours prefers-color-scheme for the popup and options page. The
- * modal is always its severity colour — that's the point of it.
+ * modal is always its severity colour; that's the point of it.
  */
 
 :root {

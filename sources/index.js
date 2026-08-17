@@ -1,10 +1,10 @@
 /**
- * sources/index.js — the source registry.
+ * sources/index.js: the source registry.
  *
  * To add a feed: write sources/<name>.js following sources/types.js, import it
  * here, and add it to SOURCES. The options page discovers it from this list
  * (dropdown entry, description, per-source settings form), and background.js
- * looks it up by `id` at poll time. Nothing else needs to change — apart from
+ * looks it up by `id` at poll time. Nothing else needs to change, apart from
  * manifest.json host_permissions if the feed lives on a new host, because the
  * browser blocks cross-origin fetches from a service worker otherwise. The
  * unit test tests/sources.test.js checks that every registered host IS in the

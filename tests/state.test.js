@@ -1,5 +1,5 @@
 /**
- * tests/state.test.js — the poll bookkeeping rules. These are the ones that
+ * tests/state.test.js: the poll bookkeeping rules. These are the ones that
  * decide whether a user gets interrupted, so they get the most cases.
  */
 import { describe, it, expect } from 'vitest';
@@ -30,7 +30,7 @@ describe('visibleAlerts', () => {
   });
 });
 
-describe('newAlerts — when do we interrupt?', () => {
+describe('newAlerts: when do we interrupt?', () => {
   it('first poll: everything visible is new', () => {
     expect(newAlerts([A('a'), A('b')], [], []).map(a => a.id)).toEqual(['a', 'b']);
   });

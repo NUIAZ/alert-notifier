@@ -1,12 +1,12 @@
 /**
- * popup.js — renders the toolbar popup.
+ * popup.js: renders the toolbar popup.
  *
  * The popup owns no state. On every open it sends { action: 'getState' } to
  * the service worker, gets back the current alerts plus the dismissed/silenced
  * ID lists, and renders. User actions (dismiss, silence, refresh) are likewise
  * messages to the worker, which is the single writer of chrome.storage. That
- * keeps the popup trivially restartable — it is destroyed the moment it loses
- * focus — and means the worker's bookkeeping rules (lib/state.js) can't be
+ * keeps the popup trivially restartable (it is destroyed the moment it loses
+ * focus) and means the worker's bookkeeping rules (lib/state.js) can't be
  * bypassed by a UI shortcut.
  */
 
@@ -87,7 +87,7 @@ function renderCards(alerts, silenced) {
   if (alerts.length > MAX_CARDS) {
     const more = document.createElement('div');
     more.className = 'more-note';
-    more.textContent = `${alerts.length - MAX_CARDS} more not shown — narrow the region or raise the severity floor in Settings.`;
+    more.textContent = `${alerts.length - MAX_CARDS} more not shown. Narrow the region or raise the severity floor in Settings.`;
     els.list.appendChild(more);
   }
   // Now that cards are laid out, mark bodies that overflow their max-height so

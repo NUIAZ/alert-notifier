@@ -1,5 +1,5 @@
 /**
- * tests/chrome-stub.js — a minimal in-memory `chrome.*` for testing
+ * tests/chrome-stub.js: a minimal in-memory `chrome.*` for testing
  * background.js end to end without a browser.
  *
  * Only the surface background.js touches is implemented: storage.local,

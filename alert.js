@@ -1,9 +1,9 @@
 /**
- * alert.js — fills the modal window (alert.html) for one alert.
+ * alert.js: fills the modal window (alert.html) for one alert.
  *
  * Flow: background.js opened us with ?id=<alertId>. We read `currentAlerts`
  * from storage, find that ID, and render. If it isn't there any more (the
- * alert cleared between the poll and the window opening — rare, but the poll
+ * alert cleared between the poll and the window opening; rare, but the poll
  * is async) we show a friendly "already resolved" message rather than a blank.
  *
  * "Acknowledge" closes the window. If "Don't show this alert again" is ticked
@@ -79,7 +79,7 @@ async function acknowledge() {
 els.ack.addEventListener('click', acknowledge);
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') window.close();
-  // Enter anywhere acknowledges — but not while focus is on the checkbox,
+  // Enter anywhere acknowledges, but not while focus is on the checkbox,
   // where Space/Enter should toggle it, and not with modifiers held.
   if (e.key === 'Enter' && !e.ctrlKey && !e.metaKey && document.activeElement !== els.silence) {
     acknowledge();

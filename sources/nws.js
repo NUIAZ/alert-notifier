@@ -1,5 +1,5 @@
 /**
- * sources/nws.js — US National Weather Service active alerts.
+ * sources/nws.js: US National Weather Service active alerts.
  *
  * Endpoint:  https://api.weather.gov/alerts/active[?area=<STATE>][&severity=…]
  * Docs:      https://www.weather.gov/documentation/services-web-api
@@ -18,16 +18,16 @@
  *
  * ── Volume, and why there are two settings ──────────────────────────────────
  * Nationwide and unfiltered, /alerts/active returns ~400–500 features and
- * ~1.4 MB on an ordinary day (measured 2026-08-17: 450 features — 123 Severe,
+ * ~1.4 MB on an ordinary day (measured 2026-08-17: 450 features, 123 Severe,
  * 103 Moderate, 216 Minor). That is too much for a badge to mean anything and
  * more than we want to write to storage every 15 minutes. So:
- *   • `area`     — a state/territory (default AZ — the author's; change it in
+ *   • `area`: a state/territory (default AZ, the author's; change it in
  *                  Options), or "Nationwide".
- *   • `severity` — passed to the API as ?severity=… so the filtering happens
+ *   • `severity`: passed to the API as ?severity=… so the filtering happens
  *                  server-side and the noise is never downloaded. Default is
  *                  "All", which is fine for one state (AZ on a busy day is
  *                  ~10 features). If you go nationwide, raise it to
- *                  Extreme+Severe (~120 features / ~0.5 MB) — the options
+ *                  Extreme+Severe (~120 features / ~0.5 MB); the options
  *                  help text says so, and the popup caps at 25 cards regardless.
  * The extension's global "ignore anything below" setting still applies on top.
  *
@@ -46,7 +46,7 @@
  * identical event/severity/times, and different `areaDesc`. Rendering all six
  * as separate cards is noise, so we collapse on (event, severity, ends) and
  * concatenate the areas. The collapsed ID is derived from those same fields so
- * it stays stable poll-to-poll — which is what dismiss/silence and "is this
+ * it stays stable poll-to-poll, which is what dismiss/silence and "is this
  * new?" all key on. If NWS extends the warning (new `ends`), it becomes a new
  * alert and re-notifies. That is the behaviour a user would expect.
  */
@@ -79,7 +79,7 @@ export const settings = [
     label: 'Region',
     type: 'select',
     default: 'AZ',
-    help: 'One state / territory, or nationwide. Nationwide is busy — pair it with the severity floor below.',
+    help: 'One state / territory, or nationwide. Nationwide is busy; pair it with the severity floor below.',
     options: [
       { value: '', label: 'Nationwide (all US)' },
       ...AREAS.map(code => ({ value: code, label: code })),
@@ -130,7 +130,7 @@ export async function fetchAlerts(opts = {}) {
 
 /**
  * Build the request URL from the per-source settings. Exported for the tests.
- * Blank area = nationwide (no ?area= at all — the API rejects an empty value).
+ * Blank area = nationwide (no ?area= at all; the API rejects an empty value).
  * `severity` is a comma list the API accepts verbatim.
  */
 export function buildUrl(opts = {}) {
@@ -144,7 +144,7 @@ export function buildUrl(opts = {}) {
 
 /**
  * Turn a raw NWS GeoJSON FeatureCollection into deduplicated Alert objects.
- * Pure — no I/O — so it is unit-testable against a fixture.
+ * Pure: no I/O, so it is unit-testable against a fixture.
  *
  * @param {{features?: Array<{properties: object}>}} payload
  * @param {Date} [now]  injectable clock for tests
@@ -162,7 +162,7 @@ export function normalizeNws(payload, now = new Date()) {
 
     // `ends` is when the hazard stops; `expires` is when THIS MESSAGE stops
     // being the latest word. Prefer ends, fall back to expires. Skip anything
-    // already over — the /active endpoint mostly handles this, but not always
+    // already over: the /active endpoint mostly handles this, but not always
     // right at the boundary.
     const endIso = p.ends || p.expires || null;
     if (endIso && new Date(endIso) < now) continue;
@@ -170,7 +170,7 @@ export function normalizeNws(payload, now = new Date()) {
     const severity = SEVERITY_MAP[String(p.severity || '').toLowerCase()] || 'info';
     const event = p.event || 'Weather alert';
 
-    // Dedup key — see file header. `ends` is included so an extension of the
+    // Dedup key: see file header. `ends` is included so an extension of the
     // same warning surfaces as new.
     const key = `${event}|${severity}|${endIso ?? ''}`;
 
@@ -204,7 +204,7 @@ export function normalizeNws(payload, now = new Date()) {
   }
 
   return [...groups.values()].map(g => {
-    // Areas from several zone groups are themselves ';'-separated lists —
+    // Areas from several zone groups are themselves ';'-separated lists,
     // flatten, trim, and dedupe so the card reads as one clean list.
     const areaList = [...new Set(
       g.areas.flatMap(a => a.split(';')).map(s => s.trim()).filter(Boolean)

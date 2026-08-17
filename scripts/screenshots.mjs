@@ -2,7 +2,7 @@ import { resolve } from 'node:path';
 import { mkdirSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 /**
- * scripts/screenshots.mjs — loads the unpacked extension into a throw-away
+ * scripts/screenshots.mjs: loads the unpacked extension into a throw-away
  * Chromium profile with Playwright, switches it to the sample-data feed, and
  * captures the popup, the modal window and the options page for the README.
  * It also serves as an end-to-end smoke test: if the service worker fails to
@@ -43,7 +43,7 @@ const context = await chromium.launchPersistentContext(profile, {
 });
 
 try {
-  // Wait for the MV3 service worker to register — that's proof the manifest,
+  // Wait for the MV3 service worker to register; that's proof the manifest,
   // module imports and top-level listener wiring are all valid.
   let [sw] = context.serviceWorkers();
   if (!sw) sw = await context.waitForEvent('serviceworker', { timeout: 15000 });
@@ -116,7 +116,7 @@ try {
     console.error('service worker console errors:', swErrors);
     process.exitCode = 1;
   } else {
-    console.log('OK — screenshots in', outDir);
+    console.log('OK. Screenshots in', outDir);
   }
 } finally {
   await context.close();

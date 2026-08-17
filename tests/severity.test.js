@@ -1,5 +1,5 @@
 /**
- * tests/severity.test.js — the four-level scale and its helpers.
+ * tests/severity.test.js: the four-level scale and its helpers.
  */
 import { describe, it, expect } from 'vitest';
 import {

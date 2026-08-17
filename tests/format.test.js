@@ -1,5 +1,5 @@
 /**
- * tests/format.test.js — text helpers, with emphasis on the escaping that
+ * tests/format.test.js: text helpers, with emphasis on the escaping that
  * keeps feed content from becoming markup.
  */
 import { describe, it, expect } from 'vitest';

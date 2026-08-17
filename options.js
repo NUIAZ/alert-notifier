@@ -1,5 +1,5 @@
 /**
- * options.js — settings page logic.
+ * options.js: settings page logic.
  *
  * Design: autosave on change, no Save button. Each control writes straight to
  * chrome.storage.local via lib/settings.js; background.js listens for the keys
@@ -76,7 +76,7 @@ async function init() {
     flash('Saved.');
   });
 
-  els.testBtn.addEventListener('click', () => runAction('resetAndCheck', 'Re-firing every active alert…', 'Done — check your notifications.'));
+  els.testBtn.addEventListener('click', () => runAction('resetAndCheck', 'Re-firing every active alert…', 'Done. Check your notifications.'));
   els.checkBtn.addEventListener('click', () => runAction('checkNow', 'Checking…', 'Checked.'));
   els.resetBtn.addEventListener('click', async () => {
     // A confirm() here would block automation and is easy to misclick through;

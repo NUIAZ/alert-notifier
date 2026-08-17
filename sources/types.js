@@ -1,5 +1,5 @@
 /**
- * sources/types.js — the one shape every data source must produce.
+ * sources/types.js: the one shape every data source must produce.
  *
  * This is the whole contract between "where alerts come from" and "what the
  * extension does with them". An adapter is a module that exports:

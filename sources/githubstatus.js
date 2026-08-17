@@ -1,15 +1,15 @@
 /**
- * sources/githubstatus.js — unresolved incidents on githubstatus.com.
+ * sources/githubstatus.js: unresolved incidents on githubstatus.com.
  *
  * Endpoint:  https://www.githubstatus.com/api/v2/incidents/unresolved.json
- * Docs:      https://www.githubstatus.com/api  (Atlassian Statuspage v2 — the
+ * Docs:      https://www.githubstatus.com/api  (Atlassian Statuspage v2; the
  *            same JSON shape is served by hundreds of other status pages, e.g.
  *            status.openai.com, status.cloudflare.com, so this adapter is a
  *            template for any of them: change the host and the label.)
  * Auth:      none.  CORS: open.
  *
  * Why include it: this is thematically what the original internal extension
- * did — watch a service-status feed and interrupt people for the bad ones. The
+ * did: watch a service-status feed and interrupt people for the bad ones. The
  * catch for a demo is that GitHub is usually healthy, so the popup will often
  * say "All clear". That is exactly why NWS is the default source and this is
  * the second adapter: it proves the adapter seam is real, in ~40 lines.
@@ -29,7 +29,7 @@ import { normalizeSeverity } from '../lib/severity.js';
 export const id = 'githubstatus';
 export const label = 'GitHub Status incidents';
 export const description =
-  'Unresolved incidents from githubstatus.com (Statuspage v2 API). Often empty — GitHub is usually up.';
+  'Unresolved incidents from githubstatus.com (Statuspage v2 API). Often empty. GitHub is usually up.';
 export const hosts = ['https://www.githubstatus.com/*'];
 export const settings = []; // nothing to configure
 

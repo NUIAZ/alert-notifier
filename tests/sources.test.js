@@ -1,5 +1,5 @@
 /**
- * tests/sources.test.js — the adapters, run against real captured payloads in
+ * tests/sources.test.js: the adapters, run against real captured payloads in
  * tests/fixtures/ (captured 2026-08-17 from the live APIs; geometry stripped
  * from the NWS one to keep it small). Plus the registry invariants that catch
  * the classic "forgot host_permissions" mistake at test time.
@@ -14,7 +14,7 @@ import { SOURCES, getSource, DEFAULT_SOURCE_ID, defaultSettingsFor } from '../so
 import { makeAlert } from '../sources/types.js';
 import { SEVERITY_ORDER } from '../lib/severity.js';
 
-// Paths are relative to the vitest root (the repo), not import.meta.url —
+// Paths are relative to the vitest root (the repo), not import.meta.url, 
 // under the jsdom environment import.meta.url is not a file: URL.
 const fixture = name => JSON.parse(readFileSync(resolve('tests/fixtures', name), 'utf8'));
 const manifest = JSON.parse(readFileSync(resolve('manifest.json'), 'utf8'));

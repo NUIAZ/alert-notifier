@@ -1,5 +1,5 @@
 /**
- * background.js — the Manifest V3 service worker. Everything that must happen
+ * background.js: the Manifest V3 service worker. Everything that must happen
  * while no extension page is open lives here: the poll timer, the fetch, the
  * badge, OS notifications, and opening the modal window.
  *
@@ -8,14 +8,14 @@
  * ~30 s of idle time, and kills it. Consequences that shape every function
  * below:
  *
- *   • No setInterval/setTimeout for polling — the worker would be dead before
+ *   • No setInterval/setTimeout for polling: the worker would be dead before
  *     the timer fired. chrome.alarms is the sanctioned way: the browser owns the
  *     schedule and wakes the worker for each tick.
  *   • No module-level state that matters. `let lastAlerts = []` at the top of
  *     this file resets every time the worker restarts, so ALL state goes through
  *     chrome.storage.local (see lib/settings.js for the key map).
  *   • Event listeners must be registered synchronously at the top level, not
- *     inside an async function or after an await — otherwise the browser has no
+ *     inside an async function or after an await; otherwise the browser has no
  *     listener to wake the worker for. That's why they're all at the bottom of
  *     this file, unconditionally.
  *   • Notification click → chrome.action.openPopup() is NOT reliable here (it
@@ -28,8 +28,8 @@
  * alerts, keeps the active ones at/above the minimum severity, works out which
  * are visible (not dismissed) and which are new (not in the previous poll's ID
  * snapshot, not silenced), updates the badge, fires a notification for each new
- * one — plus a modal window if it is critical/serious and the user has modals
- * on — then stores the new snapshot and prunes stale dismiss/silence IDs. All
+ * one (plus a modal window if it is critical/serious and the user has modals
+ * on), then stores the new snapshot and prunes stale dismiss/silence IDs. All
  * of the "which/new/prune" logic is pure and lives in lib/state.js.
  */
 
@@ -51,7 +51,7 @@ const NOTIFICATION_PREFIX = 'alert:';
  * ──────────────────────────────────────────────────────────────────────────── */
 
 /**
- * (Re)create the polling alarm from the saved interval. Idempotent — safe to
+ * (Re)create the polling alarm from the saved interval. Idempotent; safe to
  * call on install, on startup, and whenever the interval setting changes.
  * `delayInMinutes` is set equal to the period so a settings change doesn't
  * cause an immediate extra fetch (checkNow exists for that).
@@ -144,7 +144,7 @@ async function checkForAlerts() {
 function updateBadge(visible) {
   if (!visible.length) {
     chrome.action.setBadgeText({ text: '' });
-    chrome.action.setTitle({ title: 'Alert Notifier — all clear' });
+    chrome.action.setTitle({ title: 'Alert Notifier: all clear' });
     return;
   }
   const worst = highestSeverity(visible);
@@ -156,7 +156,7 @@ function updateBadge(visible) {
     chrome.action.setBadgeTextColor({ color: worst === 'warning' ? '#000000' : '#FFFFFF' });
   }
   chrome.action.setTitle({
-    title: `Alert Notifier — ${visible.length} active (${SEVERITY_LABELS[worst].toLowerCase()})`,
+    title: `Alert Notifier: ${visible.length} active (${SEVERITY_LABELS[worst].toLowerCase()})`,
   });
 }
 
@@ -164,7 +164,7 @@ function updateBadge(visible) {
  * OS-level notification. `requireInteraction` keeps critical/serious toasts on
  * screen until clicked or closed; lower severities auto-hide. The icon is the
  * 128px logo (same mark as the toolbar) so the toast is recognisable at a
- * glance among other apps' notifications. Body text is clipped — Windows/macOS truncate hard anyway, and the full text is one click
+ * glance among other apps' notifications. Body text is clipped. Windows/macOS truncate hard anyway, and the full text is one click
  * away in the popup. Notification IDs are namespaced so onClicked can tell ours
  * from anything else and map back to the alert.
  */
@@ -182,7 +182,7 @@ function showNotification(alert) {
 
 /**
  * The modal: a small always-on-top-ish popup window (type 'popup' has no tabs
- * or address bar). It gets the alert by ID and reads the rest from storage —
+ * or address bar). It gets the alert by ID and reads the rest from storage;
  * passing the whole alert through the URL was the original design, but NWS
  * bodies can be several KB and some platforms cap URL length. The window is
  * sized for a phone-shaped card and centred by the browser.
@@ -214,7 +214,7 @@ async function setSilenced(alertId, silenced) {
 
 /**
  * "Test notifications" on the options page: forget the snapshot and the
- * dismiss/silence lists, then poll — so every currently-active alert counts as
+ * dismiss/silence lists, then poll; so every currently-active alert counts as
  * new and fires again. Handy for demos and for checking your OS notification
  * settings actually let toasts through.
  */
@@ -224,7 +224,7 @@ async function resetAndCheck() {
 }
 
 /* ────────────────────────────────────────────────────────────────────────────
- * Event wiring — top level, synchronous, unconditional (see file header)
+ * Event wiring: top level, synchronous, unconditional (see file header)
  * ──────────────────────────────────────────────────────────────────────────── */
 
 chrome.runtime.onInstalled.addListener(async ({ reason }) => {
@@ -272,7 +272,7 @@ chrome.notifications.onClicked.addListener(async notificationId => {
 /**
  * Message bus for the extension pages. Each handler returns a Promise; we
  * resolve it into sendResponse and return `true` to keep the channel open for
- * the async reply — forgetting that `return true` is the classic MV3 bug where
+ * the async reply: forgetting that `return true` is the classic MV3 bug where
  * the popup sees `undefined`.
  */
 chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
