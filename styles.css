@@ -136,16 +136,16 @@ body.modal.severity-info     { background: #0d6efd; }
   background: rgba(255,255,255,.12); border-radius: var(--radius); padding: 12px 14px;
 }
 body.modal.severity-warning .modal-message { background: rgba(0,0,0,.08); }
-.modal-times { display: flex; flex-direction: column; gap: 2px; font-size: 12px; opacity: .9; margin: 12px 0 6px; }
-.modal-link { color: inherit; font-weight: 600; display: inline-block; margin: 4px 0 8px; }
-.modal-silence { display: inline-flex; margin: 8px 0 14px; font-size: 13px; }
+.modal-times { display: flex; flex-direction: column; gap: 4px; font-size: 12px; opacity: .9; margin: 16px 0 10px; }
+.modal-link { color: inherit; font-weight: 600; display: inline-block; margin: 6px 0 12px; }
+.modal-silence { display: inline-flex; margin: 12px 0 22px; font-size: 13px; }
 .btn-ack {
   display: block; width: 100%; padding: 12px; font-size: 15px; font-weight: 700;
   background: #fff; color: #000; border: none; border-radius: var(--radius); cursor: pointer;
 }
 body.modal.severity-warning .btn-ack { background: #000; color: #fff; }
 .btn-ack:hover { filter: brightness(.92); }
-.modal-hint { font-size: 11px; opacity: .7; margin: 10px 0 0; }
+.modal-hint { font-size: 11px; opacity: .7; margin: 14px 0 0; }
 
 /* ── Options page ────────────────────────────────────────────────────────── */
 body.options { padding: 24px 16px 40px; }
